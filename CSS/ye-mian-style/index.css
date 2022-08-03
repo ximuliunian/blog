@@ -61,7 +61,24 @@ header {
     color: white;
     font-weight: bolder;
     padding: 50px 0;
+    position: relative;
 }
+
+/* 尾部开始 */
+#di-bu {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    color: white;
+    font-size: 17px;
+    text-align: center;
+}
+
+#di-bu>span {
+    margin: 0 10px;
+}
+
+/* 尾部结束 */
 
 /* 头部 结束 */
 
@@ -143,20 +160,3 @@ nav>ul>li>a:hover {
 }
 
 /* 内容结束 */
-
-
-/* 尾部开始 */
-#di-bu {
-    width: 100%;
-    background-color: rgba(0, 0, 0, 0.493);
-    position: fixed;
-    bottom: 0;
-    color: white;
-    text-align: center;
-}
-
-#di-bu>span {
-    margin: 0 10px;
-}
-
-/* 尾部结束 */
