@@ -102,16 +102,17 @@ header {
 }
 
 /* 手机点击图标时显示内容 */
-#tu_biao:hover+#AZ {
+#tu_biao:hover #AZ {
     display: block;
 }
 
 /* 设置导航栏内容 */
 .AZ {
-    position: absolute;
+    position: fixed;
     top: 50px;
-    background-color: rgb(255, 255, 255);
+    left: 0;
     width: 100%;
+    background-color: rgb(255, 255, 255);
 }
 
 /* 添加边框 */
