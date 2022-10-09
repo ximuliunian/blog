@@ -19,59 +19,113 @@
 
     <!-- 头部 开始 -->
     <header>
-        <p>曦暮流年</p>
-        <p>XI MU LIU NIAN</p>
-        <!-- 进入网站次数和运行时间 -->
-        <div id="di-bu">
-            <!-- 时间 -->
-            网站2022年1月21日建站距今已运行:<span id="momk" style="color: rgb(118, 255, 129);"></span><span id="momk"></span>
-            <script src="JS/shijianxianshi.js" type="text/javascript" charset="utf-8"></script>
-            <!-- 次数 -->
-            <span id="busuanzi_container_site_pv">
-                本站总访问量<span id="busuanzi_value_site_pv" style="color: rgb(118, 255, 129);"></span>次
-            </span>
-            <span id="busuanzi_container_site_uv">
-                本站总访问客数<span id="busuanzi_value_site_uv" style="color: rgb(118, 255, 129);"></span>人
-            </span>
-        </div>
+        <!-- logo 开始 -->
+        <a href="https://www.ximuliunian.cf">
+            <img src="./ku/img/logo.png" height="50px">
+        </a>
+        <!-- logo 结束 -->
+
+        <!-- PC端导航栏 开始  -->
+        <ul id="PC" class="PC">
+            <li><a href="https://www.ximuliunian.cf/wo-de" title="视频/图片/语录...">我的</a></li>
+            <li>|</li>
+            <li><a href="https://www.ximuliunian.cf/bo-ke" title="技术/笔记...">博客</a></li>
+            <li>|</li>
+            <li><a href="https://www.ximuliunian.cf/ruan-jian" title="实用工具...">下载</a></li>
+            <li>|</li>
+            <li><a href="https://www.ximuliunian.cf/fu-ye/MC" title="我的世界服务器">Minecraft</a></li>
+            <li>|</li>
+            <li><a href="https://www.ximuliunian.cf/fu-ye/lian-xi">联系</a></li>
+            <li>|</li>
+            <li><a href="https://www.ximuliunian.cf/fu-ye/da-shang" title="打赏五块钱,暖心一整天">打赏</a></li>
+        </ul>
+        <!-- PC端导航栏 结束 -->
+
+        <!-- 移动端导航栏 开始 -->
+        <i id="tu_biao"></i>
+        <ul id="AZ" class="AZ">
+            <li><a href="https://www.ximuliunian.cf/wo-de" title="视频/图片/语录...">我的</a></li>
+            <li><a href="https://www.ximuliunian.cf/bo-ke" title="技术/笔记...">博客</a></li>
+            <li><a href="https://www.ximuliunian.cf/ruan-jian" title="实用工具...">下载</a></li>
+            <li><a href="https://www.ximuliunian.cf/fu-ye/MC" title="我的世界服务器">Minecraft</a></li>
+            <li><a href="https://www.ximuliunian.cf/fu-ye/lian-xi">联系</a></li>
+            <li><a href="https://www.ximuliunian.cf/fu-ye/da-shang" title="打赏五块钱,暖心一整天">打赏</a></li>
+        </ul>
+        <!-- 移动端导航栏 结束 -->
+
     </header>
     <!-- 头部 结束 -->
 
-    <!-- 导航栏 开始  -->
-    <nav>
-        <ul>
-            <li><a href="https://www.ximuliunian.cf/wo-de" title="视频/图片/语录...">我的</a></li>
-            <li><a href="https://www.ximuliunian.cf/bo-ke" title="技术/笔记...">博客</a></li>
-            <li><a href="https://www.ximuliunian.cf/ruan-jian" title="实用工具...">软件下载</a></li>
-            <li><a href="https://www.ximuliunian.cf/fu-ye/MC" title="我的世界服务器">Minecraft</a></li>
-            <li><a href="https://www.ximuliunian.cf/fu-ye/lian-xi">联系我</a></li>
-            <li><a href="https://www.ximuliunian.cf/fu-ye/da-shang" title="打赏五块钱,暖心一整天">打赏本站</a></li>
-        </ul>
-    </nav>
-    <!-- 导航栏 结束 -->
-
     <!-- 内容 开始 -->
-    <div class="content">
-        <div class="content-1">
-            <img src="https://ghchart.rshah.org/409ba5/ximuliunian" width="100%" style="background-color: pink;" />
+
+    <!-- 网站基本信息详情 -->
+    <div class="xiang_qing">
+        <!-- GitHub贡献图 -->
+        <div class="gong_xian_tu">
+            <img src="https://ghchart.rshah.org/409ba5/ximuliunian" width="100%" />
         </div>
-        <div class="content-1" style="border: 0;">
-            <img src="ku/img/logo.png" alt="曦暮流年" width="20%">
-            <span>网站自 2022-1-21 建站；<br>
-                本网站会不定期分享一些实用工具、技术博客、疑难杂症的解决方法、白嫖...等等等等<br>
-                <script type="text/javascript" language="javascript">
-                    document.write("本网页的最后更新时间为：" + document.lastModified);
-                </script>
+        <!-- 网站信息 -->
+        <div class="xin_xi">
+            <!-- 网站创建时间和最后更新时间 -->
+            <div class="chuang_jian_shi_jian">
+                <!-- 网站创建时间 -->
+                <span>
+                    建站时间：2022-1-21
+                </span>
+                <!-- 网站最后更新时间 -->
+                <span>
+                    <script>
+                        var dd = document.lastModified;
+                        var pp = new Date(dd);
+                        document.write("最后更新时间：" + pp.getFullYear() + "-" + (pp.getMonth() + 1) + "-" + pp.getDay());
+                    </script>
+                </span>
+            </div>
+            <!-- 网站访客数和总访问人数 -->
+            <div class="fang_wen">
+                <!-- 网站访客数 -->
+                <span>
+                    <span id="busuanzi_container_site_pv">
+                        总访问量<span id="busuanzi_value_site_pv"></span>次
+                    </span>
+                </span>
+                <!-- 网站总访问人数 -->
+                <span>
+                    <span id="busuanzi_container_site_uv">
+                        总访问客数<span id="busuanzi_value_site_uv"></span>人
+                    </span>
+                </span>
+            </div>
+            <!-- 网站运行时间 -->
+            <div class="yun_xing_shi_jian">
+                网站已运行：<span id="momk"></span>
+                <script src="JS/shijianxianshi.js" type="text/javascript" charset="utf-8"></script>
+            </div>
+        </div>
+    </div>
+
+    <!-- 网站内容 -->
+    <div class="wen_zhang">
+        <div id="wen_zhang">
+            <span class="img" id="img">
+                <img src="https://s1.328888.xyz/2022/07/22/mCSCs.gif">
+            </span>
+            <span class="text">
+                <h2><a href="https://www.ximuliunian.cf/bo-ke/fu-ye/wen-zhang/git">Git</a></h2>
+                <hr />
+                <p>
+                    <a href="https://www.ximuliunian.cf/bo-ke/fu-ye/wen-zhang/git">
+                        Git是目前世界上最先进的分布式版本控制系统（没有之一）。 Git 是一个开源的分布式版本控制软件,用以有效、高速的处理从很小到非常大的项目版本管理。 Git 最初是由Linus Torvalds设计开发的，用于管理Linux内核开发。Git 是根据GNU通用公共许可证版本2的条款分发的自由/免费软件
+                    </a>
+                </p>
             </span>
         </div>
     </div>
-    <br>
-    <!-- 内容结束 -->
+
+    <!-- 内容 结束 -->
+
 
     <!-- 底部开始 -->
-
-
-
 
     <!-- 底部结束 -->
 
