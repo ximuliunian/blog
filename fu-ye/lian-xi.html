@@ -2,207 +2,68 @@
 <html lang="zh-CN">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="description" content="联系我">
-	<meta name="Keywords" Content="联系,联系我,联系方式" />
-	<title>联系方式</title>
-	<!--页面图标-->
-	<link rel="icon" href="../ku/img/ico/联系.ico" />
-	<!--鼠标-->
-	<script src="../JS/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
-	<script src="../JS/dian-ji.js" type="text/javascript" charset="utf-8"></script>
-
-	<style type="text/css">
-		* {
-			/*清除样式*/
-			margin: 0;
-			padding: 0;
-
-		}
-
-		div#nei_rong {
-			position: absolute;
-			left: 0;
-			right: 0;
-			bottom: 0;
-			top: 0;
-			margin: auto;
-			width: 860px;
-			height: 550px;
-			/*background: blueviolet;*/
-			border: 3px solid #000
-		}
-
-
-
-
-
-
-		div#pin_dao {
-			position: absolute;
-			left: 0;
-			width: 200px;
-			height: 550px;
-			/*background: chartreuse;*/
-			border-right: 3px solid #000
-		}
-
-		div#QQ {
-			position: absolute;
-			left: 220px;
-			width: 200px;
-			height: 550px;
-			/*background: firebrick;*/
-			border-right: 3px solid #000;
-			border-left: 3px solid #000;
-		}
-
-		div#you_xiang {
-			position: absolute;
-			right: 220px;
-			width: 200px;
-			height: 550px;
-			/*background: hotpink;*/
-			border-right: 3px solid #000;
-			border-left: 3px solid #000;
-		}
-
-		div#B_zhan {
-			position: absolute;
-			right: 0;
-			width: 200px;
-			height: 550px;
-			/*background: khaki;*/
-			border-left: 3px solid #000
-		}
-
-
-
-
-
-		/*去除有序列表数字*/
-		li {
-			list-style: none;
-		}
-
-		/* 去除下划线 */
-		a {
-			text-decoration: none;
-		}
-	</style>
+    <meta charset="UTF-8">
+    <meta name="description" content="联系我">
+    <meta name="Keywords" Content="联系,联系我,联系方式" />
+    <title>联系方式</title>
+    <!--页面图标-->
+    <link rel="icon" href="../ku/img/ico/联系.ico" />
+    <link rel="stylesheet" href="../CSS/ye-mian-style/lian-xi.css">
+    <!--鼠标-->
+    <script src="../JS/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../JS/dian-ji.js" type="text/javascript" charset="utf-8"></script>
 </head>
 
 <body>
-
-
-	<!--内容-->
-
-	<div id="nei_rong" align="center">
-
-		<!--QQ频道-->
-
-		<div id="pin_dao">
-			<font size="4">
-				<ul>
-					<li>
-						<h1>企鹅↓频道</h1>
-					</li>
-					<br />
-					<li>
-						<h1>曦暮流年</h1>
-					</li>
-					<hr size="2" color="#00FFFF" />
-					<li>
-						<h1>快捷↓链接</h1>
-					</li>
-					<br />
-					<li><a href="https://qun.qq.com/qqweb/qunpro/share?_wv=3&_wwv=128&inviteCode=2ejAcF&businessType=9&from=246610&biz=ka"
-							style="color: red;">
-							<h1>转到</h1>
-						</a></li>
-				</ul>
-			</font>
-		</div>
-
-		<!--QQ号-->
-
-		<div id="QQ">
-			<font size="4">
-				<ul>
-					<li>
-						<h1>企鹅↓账号</h1>
-					</li>
-					<br />
-					<li>
-						<h1>25155 <br />50574</h1>
-					</li>
-					<hr size="2" color="#00FFFF" />
-					<li>
-						<h1>快捷↓链接</h1>
-					</li>
-					<br />
-					<li><a href="tencent://message?uin=2515550574&site=qq&menu=yes" style="color: red;">
-							<h1>PC转到</h1>
-						</a></li>
-					<br />
-					<li><a href="https://qm.qq.com/cgi-bin/qm/qr?k=OfgLeMlquIfGNUVW4v8Ffxq2OSS4ZoLo&noverify=0"
-							style="color: red;">
-							<h1>移动转到</h1>
-						</a></li>
-				</ul>
-			</font>
-		</div>
-
-		<!--邮箱-->
-
-		<div id="you_xiang">
-			<font size="4">
-				<ul>
-					<li>
-						<h1>邮↓箱</h1>
-					</li>
-					<br />
-					<li>
-						<h2>a3436528385 <br />@outlook.com</h2>
-					</li>
-					<hr size="2" color="#00FFFF" />
-					<li>
-						<h1>快捷↓链接</h1>
-					</li>
-					<br />
-					<li><a href="mailto:a3436528385@outlook.com" style="color: red;">
-							<h1>转到</h1>
-						</a></li>
-				</ul>
-			</font>
-		</div>
-
-		<!--B站-->
-
-		<div id="B_zhan">
-			<font size="4">
-				<ul>
-					<li>
-						<h1>B↓站</h1>
-					</li>
-					<br />
-					<li>
-						<h1>曦暮流年</h1>
-					</li>
-					<hr size="2" color="#00FFFF" />
-					<li>
-						<h1>快捷↓链接</h1>
-					</li>
-					<br />
-					<li><a href="https://space.bilibili.com/1304924540" style="color: red;">
-							<h1>转到</h1>
-						</a></li>
-				</ul>
-			</font>
-		</div>
-
-	</div>
-
+    <!-- 最外层主体 -->
+    <div class="zhu_ti" id="zhu_ti">
+        <!-- 左边显示信息区域 -->
+        <div class="left_ziyuan">
+            <!-- 头像 -->
+            <img src="https://www.ximuliunian.cf/ku/img/logo.png" alt="">
+            <!-- 名字 -->
+            <h1>曦 暮 流 年</h1>
+            <!-- 人生格言 -->
+            <p>偷懒是进步的动力</p>
+        </div>
+        <!-- 右边联系部分 -->
+        <nav class="right_nav" id="right_nav">
+            <ul>
+                <li>
+                    <a href="tencent://message?uin=2515550574&site=qq&menu=yes">
+                        <img src="https://s1.ax1x.com/2022/10/15/x06u7R.png" alt="">
+                        <p>PC端</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://qm.qq.com/cgi-bin/qm/qr?k=OfgLeMlquIfGNUVW4v8Ffxq2OSS4ZoLo&noverify=0">
+                        <img src="https://s1.ax1x.com/2022/10/15/x06u7R.png" alt="">
+                        <p>移动端</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="mailto:a3436528385@outlook.com">
+                        <img src="https://s1.ax1x.com/2022/10/15/x06nB9.png" alt="">
+                        <p>邮箱</p>
+                    </a>
+                </li>
+                <!-- 哔哩哔哩 -->
+                <li>
+                    <a href="https://space.bilibili.com/1304924540">
+                        <img src="https://s1.ax1x.com/2022/10/15/x06MA1.png" alt="">
+                        <p>B站</p>
+                    </a>
+                </li>
+                <!-- GitHub -->
+                <li>
+                    <a href="https://github.com/ximuliunian">
+                        <img src="https://s1.ax1x.com/2022/10/15/x06GcD.png" alt="">
+                        <p>GitHub</p>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
 </body>
 
 </html>
