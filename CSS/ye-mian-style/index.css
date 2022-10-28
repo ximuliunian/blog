@@ -281,7 +281,7 @@ header {
 
 /* 设置鼠标移动到上方时所改变的操作 */
 .text>h2>a:hover {
-    color: blueviolet;
+    color: rgb(31, 192, 255);
 }
 
 .text>p>a:hover {
