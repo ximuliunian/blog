@@ -1,0 +1,195 @@
+/* 电脑 */
+@media screen and (min-width: 960px) {
+
+    /* 背景图片 */
+    body {
+        background: url(https://s1.ax1x.com/2022/10/19/xyuyOU.png);
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-attachment: fixed;
+        min-width: 960px;
+    }
+
+    #nav {
+        border-right: 2px dotted yellow;
+    }
+
+    #nav-2 {
+        display: none;
+    }
+}
+
+/* 平板 */
+@media screen and (max-width: 960px) and (min-width: 750px) {
+
+    /* 背景图片 */
+    body {
+        background: url(https://s1.ax1x.com/2022/10/19/xyu2TJ.png);
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-attachment: fixed;
+        min-width: 750px;
+    }
+
+    #nav {
+        width: 15%;
+        border-right: 2px dotted yellow;
+    }
+
+    #nav-2 {
+        display: none;
+    }
+
+    #xian-shi {
+        width: 85%;
+    }
+
+}
+
+
+/* 手机 */
+@media screen and (max-width: 750px) {
+
+    /* 背景图片 */
+    body {
+        background: url(https://s1.ax1x.com/2022/10/19/xyucmF.png);
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-attachment: fixed;
+        min-width: 250px;
+    }
+
+    #nav>ul {
+        display: none;
+    }
+
+    #nav-2 {
+        background-image: url(https://s1.ax1x.com/2022/08/03/vZMXgH.png);
+        background-size: 100%100%;
+        width: 50px;
+        height: 50px;
+        position: absolute;
+        z-index: 1;
+    }
+
+    #nav-2:hover .nav-2 {
+        display: block;
+    }
+
+    .nav-2 {
+        position: absolute;
+        top: 50px;
+        width: 100px;
+        display: none;
+    }
+
+    #xian-shi {
+        width: 100%;
+        position: absolute;
+    }
+
+
+
+
+}
+
+/* 初始化 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    /* 让元素动起来 */
+    display: flex;
+}
+
+/* 去除滑动条 */
+body::-webkit-scrollbar {
+    display: none;
+}
+
+nav::-webkit-scrollbar {
+    display: none;
+}
+
+/* 设置导航栏 */
+nav {
+    width: 10%;
+    height: 100%;
+    /*隐藏溢出*/
+    overflow: hidden;
+    /*添加滚动条*/
+    overflow-y: scroll;
+}
+
+
+nav li {
+    width: 100%;
+    margin: 10px 0;
+}
+
+nav a {
+    display: block;
+    width: 90%;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(0, 0, 0);
+    border-radius: 15px;
+    margin: auto;
+    text-decoration: none;
+    font-size: 20px;
+    color: rgb(255, 255, 255);
+}
+
+#video a,
+#imger a,
+#video-2 a,
+#imger-2 a {
+    margin: 5px auto;
+}
+
+nav img {
+    margin-right: 5px;
+    width: 25px;
+    height: 25px;
+    filter: drop-shadow(705px 0 0 rgb(240, 39, 39));
+}
+
+nav a:hover {
+    background-color: white;
+    color: #000;
+    transition: 0.5s;
+}
+
+#video a:hover,
+#imger a:hover {
+    background-color: blueviolet;
+    color: rgb(255, 255, 0);
+}
+
+#video,
+#imger,
+#video-2,
+#imger-2 {
+    display: none;
+}
+
+#video:target,
+#imger:target,
+#video-2:target,
+#imger-2:target {
+    display: block;
+}
+
+
+iframe {
+    width: 90%;
+    height: 100%;
+}

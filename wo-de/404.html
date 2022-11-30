@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>找不到你所要的的页面了</title>
+    <!-- 引入页面logo -->
+    <link rel="Shortcut Icon" href="https://www.ximuliunian.cf/ku/img/ico/logo.ico" type="image/x-icon" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* 设置背景图片 */
+        @media screen and (min-width: 960px) {
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .bian {
+                width: 600px;
+                height: 300px;
+                background-color: aquamarine;
+                display: flex;
+            }
+        }
+
+        @media screen and (max-width: 960px) and (min-width: 750px) {
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .bian {
+                width: 300px;
+                height: 600px;
+                background-color: aquamarine;
+            }
+        }
+
+        @media screen and (max-width: 750px) {
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .bian {
+                width: 300px;
+                height: 600px;
+                background-color: aquamarine;
+            }
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+
+
+        img {
+            width: 300px;
+            height: 300px;
+        }
+
+        .right {
+            width: 300px;
+            height: 300px;
+        }
+
+        .right>p {
+            height: 150px;
+            font-size: 100px;
+            text-align: center;
+        }
+
+        .right>div {
+            height: 150px;
+            position: relative;
+            text-align: center;
+            font-size: 20px;
+        }
+
+        button {
+            font-size: 17px;
+            background-color: rgb(234, 255, 127);
+            border: 3px solid rgb(171, 143, 255);
+            border-radius: 20px;
+            width: 150px;
+            height: 40px;
+            position: absolute;
+            bottom: 40px;
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
+
+        button:hover {
+            transition: 1s;
+            background-color: blueviolet;
+            color: rgb(255, 255, 255);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bian">
+        <div class="imger">
+            <a href="https://www.ximuliunian.cf">
+                <img src="https://www.ximuliunian.cf/ku/img/logo.png" width="100px" alt="曦暮流年" title="返回主页">
+            </a>
+        </div>
+        <div class="right">
+            <p>404</p>
+            <div>
+                <p>您尝试访问的页面似乎不存在
+                    <br>请检查 URL，然后重试
+                </p>
+                <a href="https://www.ximuliunian.cf">
+                    <button>返回主页</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
