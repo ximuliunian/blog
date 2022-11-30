@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="Keywords" Content="position定位,定位" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>position定位</title>
+    <!-- 文章阅读量 -->
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <!-- 页面图标 -->
+    <link rel="icon" href="../../ku/img/logo.png">
+    <!-- 页面样式 -->
+    <link rel="stylesheet" href="../../CSS/zhang-jie-style.css">
+    <!-- 代码高亮 -->
+    <script src="../../gao-liang--hang-hao/highlight.min.js"></script>
+    <link rel="stylesheet" href="../../gao-liang--hang-hao/felipec.min.css">
+    <!-- 行号显示 -->
+    <script src="../../gao-liang--hang-hao/highlightjs-line-numbers.js"></script>
+    <!-- 初始化 -->
+    <script>hljs.initHighlightingOnLoad(); hljs.initLineNumbersOnLoad();</script>
+    <style>
+        header {
+            background-image: url(https://jpg.wiki/images/2022/10/21/oyGg.gif);
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <span>position定位</span>
+        <p>
+            <span class="header-left">
+                <img src="https://s1.ax1x.com/2022/08/03/vZQFPS.png" alt="本文创建时间" title="本文创建时间">
+                <span>2022-8-17 下午</span>
+            </span>
+            <span id="busuanzi_container_page_pv" class="header-right">
+                <img src="https://s1.ax1x.com/2022/08/03/vZQSbt.png" alt="本文阅读量" title="本文阅读量">
+                <span id="busuanzi_value_page_pv"></span>
+            </span>
+        </p>
+
+    </header>
+    <div id="body">
+        <div class="body">
+            <p id="shi-jian">本文最后更新于：2022-8-19 上午</p>
+
+
+            <div id="nav">
+                <p>目录</p>
+                <dl>
+                    <dt><a href="#1">前言</a></dt>
+                </dl>
+                <dl>
+                    <dt><a href="#2">什么是定位</a></dt>
+                </dl>
+            </div>
+
+            <h2 id="1">前言</h2>
+
+            <p>无论是div布局还是css样式都得有定位,定位属性是布局中重要的一部分,能让网页更佳生动形象的表现在用户面前,那么定位属性到底怎么用什么时候用该怎么用,本文会详细说明</p>
+
+            <h2 id="2">什么是定位</h2>
+
+            <p><b>position属性指定一个元素(相对,绝对或固定)的定位方法的类型</b></p>
+
+            <table id="biao_ge">
+                <thead>
+                    <tr>
+                        <th>值</th>
+                        <th>属性</th>
+                        <th>描述</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>static</th>
+                        <th>默认值</th>
+                        <td>
+                            没有定位,元素出现在正常的文档流中(忽略<b>top</b>、<b>bottom</b>、<b>left</b>、<b>right</b>或者<b>z-index</b>声明)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>relative</th>
+                        <th>相对定位</th>
+                        <td>
+                            相对于其正常位置进行定位(<b>以当前为参照物</b>),通常是用来给<b>absolute</b>做参照的,它不会脱离正常文档流,<b>虽然移动但是还占有着原有的物理位置</b>
+                            <br><br>
+                            也就是说,用相对定位往下移动20像素,因为它还占有原有的物理位置,的那么它的下一个元素会,就会重叠距离移动元素下部20像素
+                            <br><br>
+                            简单说,就是不管怎么移动,物理位置就是不变
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>absolute</th>
+                        <th>绝对定位</th>
+                        <td>
+                            相对于<b>static</b>定位以外的第一个父元素进行定位,他会脱离文档流,不占有原有物理位置
+                            <br><br>
+                            元素通过<b>top</b>、<b>bottom</b>、<b>left</b>以及<b>right</b>属性进行规定
+                            <br><br>
+                            如果父类没有设置<b>relative</b>,那么它的参考点就是游览器的左上角(0,0)
+                            <br><br>
+                            如果父类中某一个设置了<b>relative</b>,那么它的参考点就是设置了<b>relative</b>的父元素的左上角(0,0)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>fixed</th>
+                        <th>固定定位</th>
+                        <td>
+                            相对于游览器窗口进行定位
+                            <br><br>
+                            元素通过<b>top</b>、<b>bottom</b>、<b>left</b>以及<b>right</b>属性进行规定
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>z-index</th>
+                        <th>堆叠顺序</th>
+                        <td>
+                            此元素是直接设置,前面不需要加position,仅能在定位元素上奏效
+                            <br><br>
+                            值为数字,数字越大表示堆叠顺序越高,既离用户越近,可以为负值
+                            <br><br>
+                            跟PS里面的图层差不多
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+            <div class="bottom">
+                <p>没有更多的内容了~</p>
+                <a href="https://www.ximuliunian.cf/fu-ye/da-shang">打赏</a>
+                <a href="https://www.ximuliunian.cf/fu-ye/lian-xi" id="lian-xi">联系我</a>
+                <a href="#">回到顶部</a>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+</html>

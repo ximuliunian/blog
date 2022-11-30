@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="Keywords" Content="Win10小知识" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Win10小知识</title>
+    <!-- 文章阅读量 -->
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <!-- 页面图标 -->
+    <link rel="icon" href="../../ku/img/logo.png">
+    <!-- 页面样式 -->
+    <link rel="stylesheet" href="../../CSS/zhang-jie-style.css">
+    <style>
+        header {
+            background-image: url(https://s1.ax1x.com/2022/08/08/vQpkj0.jpg);
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <span>Win10小知识</span>
+        <p>
+            <span class="header-left">
+                <img src="https://s1.ax1x.com/2022/08/03/vZQFPS.png" alt="本文创建时间" title="本文创建时间">
+                <span>2022-8-8 下午</span>
+            </span>
+            <span id="busuanzi_container_page_pv" class="header-right">
+                <img src="https://s1.ax1x.com/2022/08/03/vZQSbt.png" alt="本文阅读量" title="本文阅读量">
+                <span id="busuanzi_value_page_pv"></span>
+            </span>
+        </p>
+
+    </header>
+    <div id="body">
+        <div class="body">
+            <p id="shi-jian">本文最后更新于：2022-8-8 下午</p>
+
+            <div id="nav">
+                <p>目录</p>
+                <dl>
+                    <dt><a href="#3">win10任务栏完全透明</a></dt>
+                </dl>
+                <dl>
+                    <dt><a href="#2">开始菜单磁贴</a></dt>
+                </dl>
+                <dl>
+                    <dt><a href="#1">截图</a></dt>
+                </dl>
+            </div>
+
+            <h2 id="3">win10任务栏完全透明</h2>
+
+            <p><b>注意: 此操作是在注册表中进行,请勿乱动表中文件,否则后果自负</b></p>
+
+            <ol>
+                <li>Win+R输入<b>regedit</b>，打开注册表编辑器</li>
+                <li>找到以下路径</li>
+                <p><b>HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced</b></p>
+                <li>新建<b>DWORD32</b>，名称为<b>TaskbarAcrylicOpacity</b>，右键修改十进制值为0透明（<b>0-10自行选择,数值越高,透明度越低</b>）</li>
+                <li>打开任务管理器（<b>Ctrl+Shift+ESC</b>），找到Windows资源管理器，重新启动</li>
+            </ol>
+
+            <h2 id="2">开始菜单磁贴</h2>
+
+            <p>开始菜单磁贴中是不能直接加入文件(.txt .bat .exe ...)的,但不是不能添加</p>
+
+            <p>在这个<b>C:\Users\你的名称\AppData\Roaming\Microsoft\Windows\Start
+                    Menu\Programs</b>目录中添加上所需文件,就会可以在<b>最近添加</b>一列找到文件</p>
+
+            <p>然后右键文件,点击<b>固定到"开始"屏幕</b></p>
+
+
+
+
+            <h2 id="1">截图</h2>
+
+            <p>注意:<b>截图前确保打开设置里面的 使用PrtScn按键打开屏幕截图</b></p>
+
+            <p> win+PS(PrtScn)截图直接保存到图片里面的屏幕截图文件夹</p>
+
+            <p>单独点击PS(PrtScn)会进行截图,不过不会保存到文件夹里面,可以通过粘贴到<b>画图 3D</b>,<b>QQ</b>,<b>微信</b>...来进行保存</p>
+
+
+
+            <div class="bottom">
+                <p>没有更多的内容了~</p>
+                <a href="https://www.ximuliunian.cf/fu-ye/da-shang">打赏</a>
+                <a href="https://www.ximuliunian.cf/fu-ye/lian-xi" id="lian-xi">联系我</a>
+                <a href="#">回到顶部</a>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+</html>

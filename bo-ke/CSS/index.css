@@ -1,0 +1,542 @@
+/* 取消所有标签的内外边距 */
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/* 响应式 开始 */
+
+/* 电脑 */
+@media screen and (min-width: 960px) {
+
+    /* 背景图片 */
+    body {
+        background: url(https://s1.ax1x.com/2022/10/19/xyuyOU.png);
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-attachment: fixed;
+        min-width: 960px;
+    }
+
+    /* 让移动端的导航隐藏 */
+    #ydd {
+        display: none;
+    }
+
+
+    /* 左边大图 */
+    .left-img {
+        width: 55%;
+        height: 350px;
+    }
+
+    /* 右边小图 */
+    .right-img {
+        width: 45%;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    /* 内容2 */
+    #body-2 {
+        height: 220px;
+    }
+
+    /* 设置内容宽高属性 */
+    #body-2>div {
+        width: 23%;
+    }
+
+    /* 内容三 */
+    #body-3>ul>li>a>img {
+        height: 200px;
+        width: 300px;
+    }
+
+    #body-3>ul>li,
+    .content {
+        height: 200px;
+    }
+
+}
+
+/* 平板 */
+@media screen and (max-width: 960px) and (min-width: 750px) {
+
+    /* 背景图片 */
+    body {
+        background: url(https://s1.ax1x.com/2022/10/19/xyu2TJ.png);
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-attachment: fixed;
+        min-width: 750px;
+    }
+
+    /* 让移动端的导航隐藏 */
+    #ydd {
+        display: none;
+    }
+
+    /* 内容1 */
+    #body-1 {
+        height: 750px;
+    }
+
+    /* 大图 */
+    .left-img {
+        width: 97%;
+        height: 350px;
+    }
+
+    /* 小图 */
+    .right-img {
+        position: absolute;
+        bottom: 0;
+        width: 97%;
+        display: flex;
+        justify-content: space-around;
+    }
+
+    /* 内容2 */
+    #body-2 {
+        flex-wrap: wrap;
+    }
+
+    #body-2>div {
+        width: 47%;
+        margin: 10px 0;
+    }
+
+    /* 内容三 */
+    #body-3>ul>li>a>img {
+        height: 200px;
+        width: 300px;
+    }
+
+    #body-3>ul>li,
+    .content {
+        height: 200px;
+    }
+}
+
+
+/* 手机 */
+@media screen and (max-width: 750px) {
+
+    /* 背景图片 */
+    body {
+        background: url(https://s1.ax1x.com/2022/10/19/xyucmF.png);
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-attachment: fixed;
+        min-width: 250px;
+    }
+
+
+    /* PC端导航栏 隐藏 */
+    nav>ul {
+        display: none;
+    }
+
+    /* 手机端导航栏 样式 */
+    .ydd {
+        background-image: url(https://s1.ax1x.com/2022/08/03/vZMXgH.png);
+        background-size: 100%100%;
+    }
+
+    /* 设置位置 */
+    #ydd {
+        display: none;
+        position: absolute;
+        left: 0;
+        top: 50px;
+    }
+
+    /* 鼠标移动到.ydd上面去事#ydd里面的内容显现 */
+    .ydd:hover #ydd {
+        background-color: aqua;
+        display: block;
+    }
+
+    /* 鼠标移动到标签上时背景/字体颜色发生改变 */
+    #ydd>li>a:hover {
+        background-color: black;
+        color: white;
+    }
+
+
+
+
+    /* 内容1 */
+    #body-1 {
+        height: 650px;
+    }
+
+    /* 大图 */
+    .left-img {
+        width: 97%;
+        height: 250px;
+    }
+
+    /* 小图 */
+    .right-img {
+        position: absolute;
+        bottom: 0;
+        width: 95%;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    /* 内容 2 */
+    #body-2 {
+        flex-wrap: wrap;
+    }
+
+    #body-2>div {
+        width: 47%;
+        margin: 10px 0;
+    }
+
+
+
+
+    /* 设置内容三的样式 */
+    #body-3>ul>li>a>img {
+        width: 80%;
+        margin: auto;
+    }
+
+    #body-3>ul>li {
+        display: flex;
+        flex-direction: column;
+    }
+
+
+    .center-text,
+    .top-text {
+        margin: auto;
+        width: 80%;
+        text-align: center;
+    }
+
+
+    .center-text {
+        max-height: 210px;
+    }
+}
+
+/* 响应式 结束 */
+
+
+/* 让 height 可以用 */
+html,
+body {
+    height: 100%;
+}
+
+/* 清除 a 标签的下划线 */
+a {
+    text-decoration: none;
+}
+
+/* 滑动条  */
+body::-webkit-scrollbar {
+    display: none;
+}
+
+
+/* 导航栏 开始 */
+
+/* 导航栏主体 */
+nav {
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    height: 50px;
+    background-color: white;
+    border-bottom: 1px solid black;
+    z-index: 100;
+}
+
+/* 导航栏内容主体 */
+nav>ul>li,
+nav>a>img {
+    float: left;
+    height: 50px;
+    display: block;
+}
+
+/* 移动端样式 开始 */
+nav>div {
+    width: 50px;
+    height: 50px;
+    float: right;
+}
+
+nav>div>ul {
+    width: 100%;
+}
+
+nav>div>ul>li {
+    background-color: white;
+    border: 1px dashed #000;
+}
+
+nav>div>ul>li>a {
+    display: block;
+    padding: 10px 0;
+    font-size: 20px;
+    color: black;
+}
+
+/* 移动端样式 结束 */
+
+nav>ul>li {
+    margin-left: 1%;
+    border-left: 1px solid rgb(99, 99, 99);
+    border-right: 1px solid rgb(99, 99, 99);
+}
+
+nav>ul>li>a {
+    display: inline-block;
+    font-size: 20px;
+    font-weight: bold;
+    color: black;
+    padding-left: 10px;
+    padding-right: 10px;
+    line-height: 50px;
+}
+
+nav>ul>li>a:hover {
+    color: white;
+    background-color: black;
+    font-style: italic;
+}
+
+/* 导航栏 结束 */
+
+
+/* 内容 开始 */
+
+/* 内外边距 开始 */
+.padga {
+    margin: 10px;
+}
+
+.padg {
+    margin: 5px;
+}
+
+/* 内外边距 结束 */
+
+/* 内容-1 开始 */
+
+/* 主框架 开始 */
+#body-1 {
+    width: 90%;
+    margin: auto;
+    border-radius: 15px;
+    position: relative;
+    top: 50px;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* 主框架 结束 */
+#body-1 p,
+#body-2 p {
+    width: 100%;
+    text-align: center;
+    color: white;
+    background-color: rgba(153, 153, 153, 0.5);
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    font-size: 20px;
+    position: absolute;
+    bottom: 4px;
+}
+
+/* 右边小图 */
+.right-img {
+    flex-wrap: wrap;
+    height: 350px;
+    overflow: hidden;
+}
+
+/* 设置4个小图的宽高 */
+.top-left-img,
+.top-right-img,
+.bottom-left-img,
+.bottom-right-img {
+    height: 48%;
+    width: 45%;
+}
+
+/* 设置四个小图包括左大图的宽高 */
+.left-img img,
+.top-left-img img,
+.top-right-img img,
+.bottom-left-img img,
+.bottom-right-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* 让a标签拥有定位 */
+.top-left-img a,
+.top-right-img a,
+.bottom-left-img a,
+.bottom-right-img a,
+.left-img a {
+    position: relative;
+}
+
+
+/* 内容-1 结束 */
+
+
+/* 内容-2 开始 */
+
+/* 主体 */
+#body-2 {
+    width: 90%;
+    margin: auto;
+    margin-top: 60px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+/* 设置内容宽高属性 */
+#body-2>div {
+    height: 200px;
+}
+
+/* 让内容a标签拥有相对定位 */
+#body-2 a {
+    position: relative;
+}
+
+/* 给图片设置相应的属性 */
+#body-2 img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* 让p标签在图片里面显示  */
+#body-2 p {
+    position: absolute;
+    bottom: 4px;
+    width: 100%;
+    text-align: center;
+}
+
+/* 内容-2 结束 */
+
+
+/* 内容-3 开始 */
+
+/* 主体 */
+#body-3 {
+    width: 90%;
+    margin: 10px auto;
+    border-radius: 15px;
+    background-color: rgba(255, 255, 255, 0.523);
+    margin-bottom: 50px;
+}
+
+.body-3 {
+    position: relative;
+    top: 50px;
+}
+
+/* 设置li的大体 */
+#body-3>ul>li {
+    display: inline-block;
+    width: 95%;
+    padding-bottom: 20px;
+    border-bottom: 3px solid #000;
+    overflow: hidden;
+    display: flex;
+    margin: auto;
+}
+
+
+/* 图片距离顶部10像素 */
+#body-3>ul>li>a {
+    margin-top: 10px;
+}
+
+/* 设置图片属性 */
+#body-3 img {
+    display: block;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* 设置内容 */
+.content {
+    margin-top: 10px;
+    margin-left: 10px;
+    position: relative;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* 设置字体大小  */
+.top-text>a {
+    flex-grow: 2;
+    font-size: 1.6rem;
+}
+
+.center-text {
+    flex-grow: 8;
+}
+
+.center-text>a {
+    white-space: pre-wrap;
+    font-size: 20px;
+    overflow: hidden;
+}
+
+
+
+.top-text a,
+.center-text a {
+    color: black;
+}
+
+.center-text {
+    border-top: 1px solid #000;
+}
+
+
+
+.bottom-text>div>img {
+    height: 40px;
+    display: block;
+    color: #000;
+}
+
+
+/* 鼠标移动事件 */
+.top-text a:hover {
+    color: rgb(0, 255, 166);
+}
+
+.center-text a:hover {
+    color: rgb(0, 255, 166);
+}
+
+/* 内容-3 结束 */
+
+/* 内容 结束 */

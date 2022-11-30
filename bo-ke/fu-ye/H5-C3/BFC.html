@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="Keywords" Content="BFC,如何触发BFC,BFC是什么" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BFC</title>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <!-- 页面图标 -->
+    <link rel="icon" href="../../ku/img/logo.png">
+    <!-- 页面样式 -->
+    <link rel="stylesheet" href="../../CSS/zhang-jie-style.css">
+    <!-- 代码高亮 -->
+    <script src="../../gao-liang--hang-hao/highlight.min.js"></script>
+    <link rel="stylesheet" href="../../gao-liang--hang-hao/felipec.min.css">
+    <!-- 行号显示 -->
+    <script src="../../gao-liang--hang-hao/highlightjs-line-numbers.js"></script>
+    <!-- 初始化 -->
+    <script>hljs.initHighlightingOnLoad(); hljs.initLineNumbersOnLoad();</script>
+    <style>
+        header {
+            background-image: url(https://jpg.wiki/images/2022/10/21/oLcj.gif);
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <span>BFC</span>
+        <p>
+            <span class="header-left">
+                <img src="https://s1.ax1x.com/2022/08/03/vZQFPS.png" alt="本文创建时间" title="本文创建时间">
+                <span>2022-8-1 下午</span>
+            </span>
+            <span id="busuanzi_container_page_pv" class="header-right">
+                <img src="https://s1.ax1x.com/2022/08/03/vZQSbt.png" alt="本文阅读量" title="本文阅读量">
+                <span id="busuanzi_value_page_pv"></span>
+            </span>
+        </p>
+    </header>
+    <div id="body">
+        <div class="body">
+            <p id="shi-jian">本文最后更新于：2022-8-16 下午</p>
+
+            <div id="nav">
+                <p>目录</p>
+                <dl>
+                    <dt><a href="#1">前言</a></dt>
+                </dl>
+                <dl>
+                    <dt><a href="#2">图文简解</a></dt>
+                    <dd><a href="#2.1">第一个例子(解决父级元素高度坍塌)</a></dd>
+                    <dd><a href="#2.2">第二个例子(解决外边距重叠的问题)</a></dd>
+                    <dd><a href="#2.3">第三个例子(解决自适应布局的问题)</a></dd>
+                </dl>
+                <dl>
+                    <dt><a href="#3">如何触发BFC</a></dt>
+                </dl>
+            </div>
+
+            <h2 id="1">前言</h2>
+
+            <p>什么是<b>BFC</b></p>
+
+            <p>BFC &emsp; Block Formatting Context &emsp; 块级格式化上下文</p>
+
+            <p>
+                简解：当元素开启 BFC 它自己就已经成为了一个独立的空间 也就是说这个
+                元素开辟了一个独立的空间然后这个元素的<b>外部元素</b>就不会受到这个
+                元素和这个元素内部元素的一个布局影响
+            </p>
+
+            <h2 id="2">图文简解</h2>
+
+            <p>一共三个例子</p>
+
+            <p>三个例子也是这个BFC它最主要要解决的三个问题</p>
+
+            <h3 id="2.1">第一个例子(解决父级元素高度坍塌)</h3>
+
+            <div class="shi_li">
+                <div
+                    style="max-width: 300px;text-align: center;border: 1px solid red;display: inline-block;margin: 10px;">
+                    <span
+                        style="display: inline-block;width: 80px;height: 100px;border: 1px solid rgb(255, 131, 131);margin: 5px;"></span>
+                    <div
+                        style="width: 100px;height: 100px;border: 1px solid rgb(255, 131, 131);margin: 5px;float: right;">
+                        <h2 style="line-height: 100px;">float</h2>
+                    </div>
+                </div>
+            </div>
+
+            <p>假设有一个 div 然后这个 div 里面包含了两个子 div</p>
+
+            <p>外面这个 div 它没有一个具体宽高,它的宽高完全是靠着两个子 div 的大小撑起来的</p>
+
+            <p>如果说里面的两个 div 做了一个浮动(众所周知,一旦浮动的话就会<b>脱离文档流</b>)这样的话父元素的高度势必会坍塌(因为没有给他设置一个具体的高度)</p>
+
+            <p>如果在这个坍塌的父元素的后面还有一个 div 因为第一个 div 的高度已经坍塌了就势必会造成第二个 div 的布局乱掉</p>
+
+            <p><b>怎么解决呢</b></p>
+
+            <p>因为是它的子元素浮动而造成的父元素高度坍塌所造成的影响</p>
+
+            <p>所以可以给这个父级 div 开启一个BFC让它形成一个独立的空间,这样的话哪怕里面的元素再怎么浮动都不会影响到外面的元素的一个布局情况</p>
+
+            <h3 id="2.2">第二个例子(解决外边距重叠的问题)</h3>
+
+            <div class="shi_li">
+                <div style="max-width: 300px;display: inline-block;color: white;">
+                    外边距10px
+                    <div
+                        style="border: 1px solid rgb(234, 255, 3); margin: 10px;width: 100px;height: 100px;line-height: 50px;">
+                        高:100px<br>宽:100px
+                    </div>
+                    <div
+                        style="border: 1px solid rgb(255, 109, 226); margin: 10px;width: 100px;height: 100px;line-height: 50px;">
+                        高:100px<br>宽:100px
+                    </div>
+                    外边距10px
+                </div>
+            </div>
+
+            <p>第一个方块的下外边距和第二个方块的上外边距都是10px加起来就是20px的外边距，但是上图的外边距明显不是，这就是外边距重叠了，一共只有10px的外边距</p>
+
+            <p><b>怎么解决呢</b></p>
+
+            <p>开启一个BFC它们外边距就不会再重叠起来了</p>
+
+            <p>因为开启了BFC所以它们的空间都独立了所以它们相互之间就不会有任何干扰<b>哪怕是外边距</b></p>
+
+            <h3 id="2.3">第三个例子(解决自适应布局的问题)</h3>
+
+            <div class="shi_li" style="display: flex;justify-content: center;">
+                <div
+                    style="border: 1px solid rgb(251, 255, 146);display: inline-block;height: 100px;line-height: 100px;width: 50px;">
+                    导航</div>
+                <div
+                    style="border: 1px solid rgb(168, 255, 167);display: inline-block;height: 100px;line-height: 50px;width: 150px;margin-left: 5px;">
+                    可以根据屏幕大小<br>自适应的内容</div>
+            </div>
+
+            <p>左边做一个导航,右边是一个可以根据屏幕大小而自适应的一些内容</p>
+
+            <p>让内容自适应屏幕的一个宽度,给导航栏 div 做了一个浮动它会重叠在内容 div 的上面 如下所示</p>
+
+            <div class="shi_li">
+                <div style="display: inline-block;">
+                    <div
+                        style="float: left; border-right: 1px solid rgb(251, 255, 146);height: 100px;line-height: 100px;width: 50px;">
+                        导航</div>
+                    <div style="border: 1px solid rgb(168, 255, 167);height: 100px;line-height: 50px;width: 200px;">
+                        可以根据屏幕大小<br>自适应的内容</div>
+                </div>
+            </div>
+
+            <p>但是如果内容变多了,那么它的内容会跑到导航栏的下面 如下所示 这种效果就很有可能不是我们希望看到的</p>
+
+            <div class="shi_li">
+                <div style="display: inline-block;">
+                    <div
+                        style="float: left; border: 1px solid rgb(251, 255, 146);height: 100px;line-height: 100px;width: 50px;">
+                        导航</div>
+                    <div style="border: 1px solid rgb(168, 255, 167);height: 150px;line-height: 50px;width: 200px;">
+                        可以根据屏幕大小<br>自适应的内容<br>我是多出来的</div>
+                </div>
+            </div>
+
+            <p>这样就可以给那个做内容的开启一个BFC这样它俩就不会再有干扰了 如本例第一幅图</p>
+
+            <p>因为它还是块级元素还是尽可能的把这一行占满的所以还是可以做一个自适应</p>
+
+            <h2 id="3">如何触发BFC</h2>
+
+            <ol>
+                <li>根元素(<b>&lt;html&gt;</b>)</li>
+                <li>浮动元素(元素的<b>float</b>不是<b>none</b>)</li>
+                <li>绝对定位元素(元素的<b>position</b>为<b>absolute</b>或<b>fixe</b>)</li>
+                <li>
+                    <b>display</b>为
+                    <b>inline-block</b>、
+                    <b>table</b>、
+                    <b>table-cell</b>、
+                    <b>table-caption</b>、
+                    <b>table-row</b>、
+                    <b>table-row-group</b>、
+                    <b>table-header-group</b>、
+                    <b>table-column-group</b>、
+                    <b>inline-table</b>、
+                    <b>flow-root</b>、
+                    <b>flex</b>或
+                    <b>inline-flex</b>、
+                    <b>grid</b>或
+                    <b>inline-grid</b>
+                </li>
+                <li><b>overflow</b>值不为<b>visible</b>的块元素</li>
+                <li><b>contain</b>值为<b>layout</b>、<b>content</b>或<b>paint</b>的元素</li>
+                <li>多列容器(元素的<b>column-count</b>或<b>column-width</b>不为<b>auto</b>,包括<b>column-count</b>为 1)</li>
+            </ol>
+
+            <pre>
+<code>  日常开发中应用的最多触发BFC的方法
+
+  overflow: hidden;
+  
+  display: block;
+  
+  display: table-cell;
+  
+  position: absolute;
+  
+  position: fixed;    
+</code>
+            </pre>
+
+            <p>虽然方法都可以触发BFC但是表达出来的效果是不一样的</p>
+
+            <p>比如<b>position: absolute;</b>和<b>position: fixed;</b>一个是固定定位一个是绝对定位最终表现得形式是不一样的</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <div class="bottom">
+                <p>没有更多的内容了~</p>
+                <a href="https://www.ximuliunian.cf/fu-ye/da-shang">打赏</a>
+                <a href="https://www.ximuliunian.cf/fu-ye/lian-xi" id="lian-xi">联系我</a>
+                <a href="#">回到顶部</a>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+</html>
