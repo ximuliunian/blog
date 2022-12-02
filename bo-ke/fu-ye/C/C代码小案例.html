@@ -45,7 +45,7 @@
     </header>
     <div id="body">
         <div class="body">
-            <p id="shi-jian">本文最后更新于：2022-10-29 下午</p>
+            <p id="shi-jian">本文最后更新于：2022-12-2 晚上</p>
 
 
             <div id="nav">
@@ -53,10 +53,24 @@
                 <!-- 
                     <dl>
                     <dt><a href="#"></a></dt>
-                    <dd><a href="#">思路</a></dd>
-                    <dd><a href="#">代码</a></dd>
+                    <dd><a href="#.1">思路</a></dd>
+                    <dd><a href="#.2">代码</a></dd>
                 </dl>
+
+                <h2 id=""></h2>
+            <h3 id=".1">思路</h3>
+            <h3 id=".2">代码</h3>
              -->
+                <dl>
+                    <dt><a href="#6">留数字</a></dt>
+                    <dd><a href="#6.1">思路</a></dd>
+                    <dd><a href="#6.2">代码</a></dd>
+                </dl>
+                <dl>
+                    <dt><a href="#5">掐头去尾</a></dt>
+                    <dd><a href="#5.1">思路</a></dd>
+                    <dd><a href="#5.2">代码</a></dd>
+                </dl>
                 <dl>
                     <dt><a href="#4">判断输入数是否为素数</a></dt>
                     <dd><a href="#4.1">思路</a></dd>
@@ -79,6 +93,116 @@
                     <dd><a href="#1.2">代码</a></dd>
                 </dl>
             </div>
+
+            <h2 id="6">留数字</h2>
+
+            <p>输入“123ASCII456”则新的字符串为“123456”</p>
+
+            <h3 id="6.1">思路</h3>
+
+            <ol>
+                <li>先定义一个字符型的数组并输入</li>
+                <li>调用函数</li>
+                <li>先得出字符串中的所有数字</li>
+                <li>得到的数字进行反序</li>
+                <li>输出</li>
+            </ol>
+
+            <h3 id="6.2">代码</h3>
+
+            <pre>
+<code>#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+
+void fun(char a[]);
+
+int main() {
+    char a[100];
+    //输入部分
+    printf("请输入一个字符串");
+    gets(a);
+    //调用函数
+    fun(a);
+}
+
+void fun(char a[]) {
+    //sum = 新数  c = 倍数  d = 和  temp = 临时用数
+    int sum = 0, c = 1, d = 0, temp;
+    //先得到数字,循环n次(循环次数取决于字符串的长度)
+    for (int i = 0; i < strlen(a); ++i) {
+        //判断书字符串中是否有数字出现
+        if (a[i] >= '0' && a[i] <= '9') {
+            //先用临时值装数值,减48是因为之歌值是ASCLL码里面的,所以减48
+            temp = a[i] - 48;
+            //把临时的值和c进行相乘在加上本身(d)得出的值赋予d
+            d += temp * c;
+            //每次执行完之后c会乘10变成 1 10 100 1000 ...
+            c *= 10;
+        }
+    }
+    //数字进行反序,当d=0时停止循环
+    while (d != 0) {
+        //让其本身乘以10加上d的最高位上的数字
+        sum = sum * 10 + d % 10;
+        //每次执行完之后舍弃最后一位数 例: 1234 123 12 1 0
+        d /= 10;
+    }
+    //输出
+    printf("%d", sum);
+}
+</code>
+            </pre>
+
+
+            <h2 id="5">掐头去尾</h2>
+
+            <p>若原来的字符串为CEAedca，则排序后输出为CedcEAa</p>
+
+            <h3 id="5.1">思路</h3>
+
+            <ol>
+                <li>先定义一个字符型数组并输入</li>
+                <li>调用函数</li>
+                <li>让其进项冒泡(冒小泡)排序</li>
+                <li>排序的时候第二层for初始为1,结束为n-2,让其进行掐头去尾</li>
+            </ol>
+
+            <h3 id="5.2">代码</h3>
+
+            <pre>
+<code>#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+
+void fun(char a[]);
+
+int main() {
+    char a[100];
+    //输入
+    gets(a);
+    //调用函数
+    fun(a);
+    //输出
+    puts(a);
+}
+//函数实现(冒泡)
+void fun(char a[]) {
+    //一共循环n次(这里是有几个数就循环几次)
+    for (int i = 0; i < strlen(a) ; ++i) {
+        //循环从1开始(掐头),循环n-2次(去尾)
+        for (int j = 1; j < strlen(a) - 2; ++j) {
+            //判断现在的值去比较它的后值,如果比前值大,则两值进行交换
+            if (a[j] < a[j + 1]) {
+                char temp;
+                temp = a[j];
+                a[j] = a[j + 1];
+                a[j + 1] = temp;
+            }
+        }
+    }
+}    
+</code>
+            </pre>
+
 
             <h2 id="4">判断输入数是否为素数</h2>
 
