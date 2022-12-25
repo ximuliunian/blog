@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>2208B点名表</title>
+	<style>
+		body {
+			background: url(./img/9.jpg);
+			background-size: 100%;
+		}
+
+		.w1 {
+			width: 100%;
+		}
+
+		.left {
+			width: 50%;
+			float: left;
+		}
+
+		.right {
+			/* width: 50%; */
+			width: 50%;
+			float: right;
+		}
+
+		/*圆圈*/
+		.dd {
+			width: 360px;
+			height: 360px;
+			border: 5px solid rgb(91, 91, 212);
+			margin: 10px 230px 60px;
+			background-image: url(./img/4-1.jpg);
+			background-size: 100%;
+			border-radius: 50%;
+		}
+
+		/*被点到的名字*/
+		#box {
+			margin: 220px 40px 60px;
+			color: red;
+			font-size: 50px;
+			font-weight: bold;
+		}
+
+		/*开始结束按钮*/
+		.cc {
+			float: left;
+			margin-left: 300px;
+		}
+
+		/*小组按钮*/
+		.bb1 {
+			float: left;
+			margin-top: 50px;
+			margin-left: 117px;
+		}
+
+		/*按钮样式*/
+		.bb,
+		.aa,
+		.bb1 {
+			width: 120px;
+			height: 30px;
+			background: rgb(91, 91, 212);
+			border: 1px solid rgb(91, 91, 212);
+			border-radius: 50px;
+			color: white;
+			font-weight: bold;
+			font-size: 20px;
+			outline: none;
+		}
+	</style>
+	<script>
+		// 随机点名效果
+		var timer;
+		function i1() {
+			clearInterval(timer);
+			timer = setInterval(function () {
+				var arr = [
+					"张隆波", "梁耀文", "彭忠阳", "李风达", "田金枫", "李倩",
+					"王晨旭", "桂重阳", "崔雨果", "殷皓祥", "宋金霞", "赵鸿申",
+					"王国权", "王圆景", "赵培杰", "巩志豪", "冯中良", "陈宇翔", "王钱钱",
+					"张晓峰", "翟进成", "赵金玥", "刘颜逢", "李松涛", "刘博昱",
+					"武家瀛", "张东岳", "刘哲萌", "李鸿建", "关兆君", "崔淇", "刘毅",
+					"侯许阳", "赵亚超", "魏子博", "张豪洋", "周森", "齐世康",
+				];
+				var sj = parseInt(Math.random() * arr.length);
+				var name = arr[sj];
+				document.getElementById("box").innerHTML = name;
+			}, 1);
+		}
+
+		function z1() {
+			clearInterval(timer);
+			timer = setInterval(function () {
+				var arr = ["张隆波", "梁耀文", "张旭", "李洋", "李风达", "田金枫", "李倩",];
+				var sj = parseInt(Math.random() * arr.length);
+				var name = arr[sj];
+				document.getElementById("box").innerHTML = name;
+			}, 1);
+		}
+		function z2() {
+			clearInterval(timer);
+			timer = setInterval(function () {
+				var arr = ["王晨旭", "段明燕", "桂重阳", "崔雨果", "殷皓祥", "宋金霞", "赵鸿申",];
+				var sj = parseInt(Math.random() * arr.length);
+				var name = arr[sj];
+				document.getElementById("box").innerHTML = name;
+			}, 1);
+		}
+		function z3() {
+			clearInterval(timer);
+			timer = setInterval(function () {
+				var arr = ["王国权", "王圆景", "赵培杰", "巩志豪", "冯中良", "陈宇翔", "王钱钱",];
+				var sj = parseInt(Math.random() * arr.length);
+				var name = arr[sj];
+				document.getElementById("box").innerHTML = name;
+			}, 1);
+		}
+		function z4() {
+			clearInterval(timer);
+			timer = setInterval(function () {
+				var arr = ["张晓峰", "翟进成", "赵金玥", "刘颜逢", "李松涛", "胡作龙", "熊子硕",];
+				var sj = parseInt(Math.random() * arr.length);
+				var name = arr[sj];
+				document.getElementById("box").innerHTML = name;
+			}, 1);
+		}
+		function z5() {
+			clearInterval(timer);
+			timer = setInterval(function () {
+				var arr = ["武家瀛", "张东岳", "刘哲萌", "李鸿建", "关兆君", "崔淇", "郭学龙",];
+				var sj = parseInt(Math.random() * arr.length);
+				var name = arr[sj];
+				document.getElementById("box").innerHTML = name;
+			}, 1);
+		}
+		function z6() {
+			clearInterval(timer);
+			timer = setInterval(function () {
+				var arr = ["侯许阳", "赵亚超", "魏子博", "张豪洋", "刘英爽", "周森", "齐世康",];
+				var sj = parseInt(Math.random() * arr.length);
+				var name = arr[sj];
+				document.getElementById("box").innerHTML = name;
+			}, 1);
+		}
+
+		function o2() {
+			clearInterval(timer);
+		}
+	</script>
+</head>
+
+<body>
+	<a href="./index.html" style="position: absolute; left:10px; top: 10px;">出勤表</a>
+	<div class="w1">
+		<div class="left">
+			<div class="dd">
+				<p id="box"></p>
+			</div>
+			<div class="cc">
+				<button onclick="i1()" class="bb">开始</button>
+				<button onclick="o2()" class="aa">结束</button>
+			</div>
+		</div>
+
+		<div class="right">
+			<button onclick="z1()" class="bb1">张隆波</button>
+			<button onclick="z2()" class="bb1">王晨旭</button>
+			<button onclick="z3()" class="bb1">王国权</button>
+			<button onclick="z4()" class="bb1">张晓峰</button>
+			<button onclick="z5()" class="bb1">武家瀛</button>
+			<button onclick="z6()" class="bb1">侯许阳</button>
+		</div>
+	</div>
+</body>
+
+</html>
