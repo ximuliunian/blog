@@ -37,10 +37,13 @@
     </header>
     <div id="body">
         <div class="body">
-            <p id="shi-jian">本文最后更新于：2022-8-8 下午</p>
+            <p id="shi-jian">本文最后更新于：2022-12-31 下午</p>
 
             <div id="nav">
                 <p>目录</p>
+                <dl>
+                    <dt><a href="#4">批量添加和删除后缀名</a></dt>
+                </dl>
                 <dl>
                     <dt><a href="#3">win10任务栏完全透明</a></dt>
                 </dl>
@@ -51,6 +54,32 @@
                     <dt><a href="#1">截图</a></dt>
                 </dl>
             </div>
+
+            <h2 id="4">批量修改个删除后缀名</h2>
+
+            <p>添加后缀名</p>
+
+            <ol>
+                <li>先创建一个文本文档</li>
+                <li>然后在输入以下文本</li>
+                <p>setlocal enabledelayedexpansion</p>
+                <p>for /f "delims=" %%i in ('dir /b') do ren "%%i" "%%i".XXX</p>
+                <p>pause</p>
+                <p>.XXX就是要添加上去的后缀名</p>
+                <li>输入完之后保存并将后缀改为<b>.bat</b></li>
+            </ol>
+
+            <p>删除后缀名</p>
+
+            <ol>
+                <li>先创建一个文本文档</li>
+                <li>然后在输入以下文本</li>
+                <p>ren *.XXX *.</p>
+                <p>.XXX就是要删除的后缀名</p>
+                <li>输入完之后保存并将后缀改为<b>.bat</b></li>
+            </ol>
+
+            <p><b>用的时候只需要创建一个文件夹，把要添加的后缀的文件放入里面，再把创建的.bat文件也放入里面，双击之后进行添加后缀</b></p>
 
             <h2 id="3">win10任务栏完全透明</h2>
 
