@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typora图片上传</title>
+    <!-- 文章阅读量 -->
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <!-- 页面图标 -->
+    <link rel="icon" href="../../ku/img/logo.png">
+    <!-- 页面样式 -->
+    <link rel="stylesheet" href="../../CSS/zhang-jie-style.css">
+    <style>
+        header {
+            background-image: url(https://s1.ax1x.com/2023/01/04/pSFzHO0.jpg);
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <span>Typora图片上传</span>
+        <p>
+            <span class="header-left">
+                <img src="https://s1.ax1x.com/2022/08/03/vZQFPS.png" alt="本文创建时间" title="本文创建时间">
+                <span>2023-1-4 晚上</span>
+            </span>
+            <span id="busuanzi_container_page_pv" class="header-right">
+                <img src="https://s1.ax1x.com/2022/08/03/vZQSbt.png" alt="本文阅读量" title="本文阅读量">
+                <span id="busuanzi_value_page_pv"></span>
+            </span>
+        </p>
+
+    </header>
+    <div id="body">
+        <div class="body">
+            <p id="shi-jian">本文最后更新于：2023-1-5 上午</p>
+
+            <div id="nav">
+                <p>目录</p>
+                <dl>
+                    <dt><a href="#1">前言</a></dt>
+                </dl>
+                <dl>
+                    <dt><a href="#2">GitHub图床搭建</a></dt>
+                    <dd><a href="#2.1">在Markdown中使用图床</a></dd>
+                </dl>
+                <dl>
+                    <dt><a href="#3">在Markdown中引用图片</a></dt>
+                    <dd><a href="#3.1">使用jsDelivr加速</a></dd>
+                </dl>
+                <dl>
+                    <dt><a href="#4">Typora搭配PicGo使用</a></dt>
+                    <dd><a href="#4.1">配置Typora</a></dd>
+                    <dd><a href="#4.2">配置PicGo</a></dd>
+                </dl>
+                <dl>
+                    <dt><a href="#5">错误</a></dt>
+                    <dd><a href="#5.1">图片不显示</a></dd>
+                </dl>
+            </div>
+
+            <h2 id="1">前言</h2>
+
+            <p>在写md笔记的时，有点时候就得把文件分享给他人，没图片还好，有图片的话还得把图片一起分享过去，这样显得很麻烦也很呆</p>
+
+            <p>有那么一种办法，让文件带着图片远走高飞</p>
+
+            <p><b>GitHub图床</b></p>
+
+            <p>平民的不二选择，处理访问慢一点其他一切都好（免费还要啥自行车）</p>
+
+            <p>保证浏览器访问要用图床，保证加载速度要用图床工具，又不花钱想想就开心</p>
+
+            <h2 id="2">GitHub图床搭建</h2>
+
+            <p>说的那么高深其实就是在GitHub中新建一个仓库，然后将图片存放在新建的仓库中</p>
+
+            <p>在<a href="https://github.com">GitHub</a>主页的左上角有个如下图的按钮</p>
+
+
+            <a href="https://s1.ax1x.com/2023/01/04/pSkpp4g.png" target="_blank">
+                <img src="https://s1.ax1x.com/2023/01/04/pSkpp4g.png" alt="找不到图片了~" title="查看图片">
+            </a>
+
+            <p>点New创建仓库；具体步骤如下所示</p>
+
+
+            <a href="https://s1.ax1x.com/2023/01/04/pSkpHaT.png" target="_blank">
+                <img src="https://s1.ax1x.com/2023/01/04/pSkpHaT.png" alt="找不到图片了~" title="查看图片">
+            </a>
+
+            <p>创建好的仓库</p>
+
+            <a href="https://s1.ax1x.com/2023/01/04/pSk9Ezd.png" target="_blank">
+                <img src="https://s1.ax1x.com/2023/01/04/pSk9Ezd.png" alt="找不到图片了~" title="查看图片">
+            </a>
+
+
+            <h3 id="2.1">在Markdown中使用图床</h3>
+
+            <p>不管你是git或拖拽只要把图片导入到仓库就可以使用图床中的图片了</p>
+
+            <p><b>GitHub上传文件的两种状态</b></p>
+
+
+            <a href="https://s1.ax1x.com/2023/01/04/pSk94YD.png" target="_blank">
+                <img src="https://s1.ax1x.com/2023/01/04/pSk94YD.png" alt="找不到图片了~" title="查看图片">
+            </a>
+
+            <h2 id="3">在Markdown中引用图片</h2>
+
+            <p>按照如下格式引用到Markdown文件中</p>
+
+            <p><b>![](https://cdn.jsdelivr.net/gh/GitHub名称/仓库名/图片名.后缀)</b></p>
+
+            <p>图片就显示出来了</p>
+
+            <h3 id="3.1">使用jsDelivr加速</h3>
+
+            <p>建好了图床可以在浏览器中访问了，这样就够了吗？</p>
+
+            <p>想想平时访问GitHub的速度，还可能把特别大的图片放在仓库中，加载速度属实急人啊！</p>
+
+            <p>不过幸好，jsDelivr帮你解决了这个问题！</p>
+
+            <a href="https://s1.ax1x.com/2023/01/04/pSkCIEV.png" target="_blank">
+                <img src="https://s1.ax1x.com/2023/01/04/pSkCIEV.png" alt="找不到图片了~" title="查看图片">
+            </a>
+
+            <p>按照模板直接套</p>
+
+            <a href="https://s1.ax1x.com/2023/01/04/pSkPigH.png" target="_blank">
+                <img src="https://s1.ax1x.com/2023/01/04/pSkPigH.png" alt="找不到图片了~" title="查看图片">
+            </a>
+
+            <p><b>仓库中的文件无论什么格式都可以这样加速（上面是常用的一种方法，想具体了解可以看官方文档）</b></p>
+
+            <h2 id="4">Typora搭配PicGo使用</h2>
+
+            <p>PicGo可以使用除git和拖拽以外的第三种方法向图床传送文件，还支持自动复制链接等功能</p>
+
+            <a href="https://s1.ax1x.com/2023/01/04/pSkPmUf.png" target="_blank">
+                <img src="https://s1.ax1x.com/2023/01/04/pSkPmUf.png" alt="找不到图片了~" title="查看图片">
+            </a>
+
+            <p>
+                PicGo下载地址：
+                <a href="https://github.com/Molunerfinn/PicGo/releases" target="_blank">
+                    https://github.com/Molunerfinn/PicGo/releases
+                </a>
+            </p>
+
+            <a href="https://s1.ax1x.com/2023/01/04/pSkPgIK.png" target="_blank">
+                <img src="https://s1.ax1x.com/2023/01/04/pSkPgIK.png" alt="找不到图片了~" title="查看图片">
+            </a>
+
+            <h3 id="4.1">配置Typora</h3>
+
+            <p>打开Typora -> 文件 -> 偏好设置 -> 图像</p>
+
+            <a href="https://s1.ax1x.com/2023/01/04/pSkiJQH.png" target="_blank">
+                <img src="https://s1.ax1x.com/2023/01/04/pSkiJQH.png" alt="找不到图片了~" title="查看图片">
+            </a>
+
+            <h3 id="4.2">配置PicGo</h3>
+
+            <p><b>在Github上面生成token</b></p>
+
+            <a href="https://s1.ax1x.com/2023/01/04/pSkkYVI.png" target="_blank">
+                <img src="https://s1.ax1x.com/2023/01/04/pSkkYVI.png" alt="找不到图片了~" title="查看图片">
+            </a>
+
+            <a href="https://s1.ax1x.com/2023/01/04/pSkkNIP.png" target="_blank">
+                <img src="https://s1.ax1x.com/2023/01/04/pSkkNIP.png" alt="找不到图片了~" title="查看图片">
+            </a>
+
+            <a href="https://s1.ax1x.com/2023/01/04/pSkkDMQ.png" target="_blank">
+                <img src="https://s1.ax1x.com/2023/01/04/pSkkDMQ.png" alt="找不到图片了~" title="查看图片">
+            </a>
+
+            <a href="https://s1.ax1x.com/2023/01/04/pSkkrrj.png" target="_blank">
+                <img src="https://s1.ax1x.com/2023/01/04/pSkkrrj.png" alt="找不到图片了~" title="查看图片">
+            </a>
+
+
+            <p><b>设置PicGo</b></p>
+
+            <a href="https://s1.ax1x.com/2023/01/04/pSkkbIx.png" target="_blank">
+                <img src="https://s1.ax1x.com/2023/01/04/pSkkbIx.png" alt="找不到图片了~" title="查看图片">
+            </a>
+
+            <p>点击设置 -> 设置Server -> 设置监听端口（设置为36677）</p>
+
+            <p>全部设置完成之后，点击确定并设置为默认图床</p>
+
+            <p>模板：<b>https://cdn.jsdelivr.net/gh/GitHub用户名/图床仓库名</b></p>
+
+            <p><b>这样就完成了，用的时候直接复制图片到Typora就会自动上传</b></p>
+
+            <h2 id="5">错误</h2>
+
+            <h3 id="5.1">图片不显示</h3>
+
+            <p>图片不显示这个原因可能是GitHub的问题</p>
+
+            <p>GitHub的图片被保存到了：https://raw.githubusercontent.com</p>
+
+            <p>但是这个地址好像被墙了，这就导致会无法访问图片</p>
+
+            <p>解决方法就是更改hosts文件</p>
+
+            <ol>
+                <li>打开域名解析网站：<a href="https://ping.eu/nslookup" target="_blank">https://ping.eu/nslookup</a></li>
+                <li>然后输入 raw.githubusercontent.com，如下图</li>
+                <a href="https://s1.ax1x.com/2023/01/05/pSklrsx.png" target="_blank">
+                    <img src="https://s1.ax1x.com/2023/01/05/pSklrsx.png" alt="找不到图片了~" title="查看图片">
+                </a>
+                <li>打开本机的 hosts 文件，路径：<b>C:\Windows\System32\drivers\etc\hosts</b> 然后添加如下内容(上图红框中的地址)</li>
+                <a href="https://s1.ax1x.com/2023/01/05/pSk3S9H.png" target="_blank">
+                    <img src="https://s1.ax1x.com/2023/01/05/pSk3S9H.png" alt="找不到图片了~" title="查看图片">
+                </a>
+                <li>刷新本机DNS解析</li>
+                <p>Win+R，输入cmd打开黑窗口，输入ipconfig /flushdns刷新一下本机的DNS解析</p>
+                <a href="https://s1.ax1x.com/2023/01/05/pSk3J5F.png" target="_blank">
+                    <img src="https://s1.ax1x.com/2023/01/05/pSk3J5F.png" alt="找不到图片了~" title="查看图片">
+                </a>
+            </ol>
+
+
+            <div class="bottom">
+                <p>没有更多的内容了~</p>
+                <a href="https://www.ximuliunian.cf/fu-ye/da-shang">打赏</a>
+                <a href="https://www.ximuliunian.cf/fu-ye/lian-xi" id="lian-xi">联系我</a>
+                <a href="#">回到顶部</a>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+</html>
