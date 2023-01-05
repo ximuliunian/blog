@@ -36,7 +36,7 @@
     </header>
     <div id="body">
         <div class="body">
-            <p id="shi-jian">本文最后更新于：2022-11-2 中午</p>
+            <p id="shi-jian">本文最后更新于：2023-1-5 下午</p>
 
 
             <div id="nav">
@@ -47,7 +47,7 @@
                 </dl>
                 <dl>
                     <dt><a href="#2">配置/激活</a></dt>
-                    <dd><a href="#2.1">MinGW</a></dd>
+                    <dd><a href="#2.1">MinGW下载/配置</a></dd>
                     <dd><a href="#2.2">激活包</a></dd>
                     <dd><a href="#2.3">激活码</a></dd>
                 </dl>
@@ -118,7 +118,7 @@
 
             <p>下载完Clion还不行,还得有激活和一些编辑器配置等等</p>
 
-            <h3 id="2.1">MinGW</h3>
+            <h3 id="2.1">MinGW下载/配置</h3>
 
             <p>版本: MinGW-W64-builds-4.3.5</p>
 
@@ -152,6 +152,18 @@
 
             <a href="https://s1.ax1x.com/2022/10/14/xdzpTI.png" target="_blank">
                 <img src="https://s1.ax1x.com/2022/10/14/xdzpTI.png" alt="找不到图片了~" title="查看图片">
+            </a>
+
+            <p>打开Clion -> 设置 -> 构建、执行、部署 -> 工具链</p>
+
+            <p>按照图片进行配置</p>
+
+            <p>构建工具那块是因为我把文件解压到软件的根目录里了，如果原来根目录里面有MinGW那么删除即可</p>
+
+            <p>C编译器、C++编译器 选择自动检测就行，如果检测成功，把鼠标滑动到上面时，会出现检测的目录，如果不是解压文件的目录，那么把检测目录里面的文件删除在进行检测</p>
+
+            <a href="https://s1.ax1x.com/2023/01/05/pSkj58A.png" target="_blank">
+                <img src="https://s1.ax1x.com/2023/01/05/pSkj58A.png" alt="找不到图片了~" title="查看图片">
             </a>
 
             <h3 id="2.2">激活包</h3>
@@ -238,11 +250,17 @@
                 <img src="https://s1.ax1x.com/2022/10/14/xdzrcD.png" alt="找不到图片了~" title="查看图片">
             </a>
 
-            <p><b>解决方法</b>: 先CTRL+ALT+SHIFT+/ --> 注册表 --> 把以下图片上的红括号里面的<b>取消勾选</b>,然后点击右上角的笔,退出执行</p>
+            <p><b>解决方法如下</b></p>
 
-            <a href="https://s1.ax1x.com/2022/10/14/xdzD1O.png" target="_blank">
-                <img src="https://s1.ax1x.com/2022/10/14/xdzD1O.png" alt="找不到图片了~" title="查看图片">
-            </a>
+            <ol>
+                <li>设置 --> 编辑器 --> 文件编码</li>
+                <li><b>全局编码</b>和<b>项目编码</b>设置为<b>UTF-8</b>，属性文件的默认编码设置为<b>GBK</b>，创建UTF-8文件：<b>不含BOM</b></li>
+                <li>之后创建的文件都是UTF-8编码格式的，这个格式运行代码中文还是会乱码，所以在屏幕的右下角区域有个UTF-8，点击一下，选择GBK，点转换</li>
+            </ol>
+
+            <p>这样就不会中文乱码了</p>
+
+            <p>之后创建的文件都是UTF-8格式的，要自己手动更改成GBK格式</p>
 
             <h2 id="4">如何在Clion下创建多个.c文件</h2>
 
