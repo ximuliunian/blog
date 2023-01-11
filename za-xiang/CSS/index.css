@@ -148,8 +148,10 @@ nav a {
     color: rgb(255, 255, 255);
 }
 
+#bizhi a,
 #video a,
 #imger a,
+#bizhi-2 a,
 #video-2 a,
 #imger-2 a {
     margin: 5px auto;
@@ -168,21 +170,26 @@ nav a:hover {
     transition: 0.5s;
 }
 
+#bizhi a:hover,
 #video a:hover,
 #imger a:hover {
     background-color: blueviolet;
     color: rgb(255, 255, 0);
 }
 
+#bizhi,
 #video,
 #imger,
+#bizhi-2,
 #video-2,
 #imger-2 {
     display: none;
 }
 
+#bizhi:target,
 #video:target,
 #imger:target,
+#bizhi-2:target,
 #video-2:target,
 #imger-2:target {
     display: block;

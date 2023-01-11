@@ -217,6 +217,7 @@ body::-webkit-scrollbar {
 
 /* GIF 结束 */
 
+/* 照片 结束 */
 
 /* 壁纸 开始 */
 #bi-zhi>ul {
@@ -243,4 +244,73 @@ body::-webkit-scrollbar {
 
 /* 壁纸 结束 */
 
-/* 照片 结束 */
+
+/* 壁纸-图片 开始 */
+#bizhi-img>ul {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+#bizhi-img>ul>li {
+    list-style: none;
+    margin-bottom: 10px;
+    width: 300px;
+    height: 230px;
+    border: 2px solid white;
+    background-color: aliceblue;
+    border-radius: 5px;
+}
+
+#bizhi-img>ul>li>a>img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+#bizhi-img>ul>li>a>p {
+    height: 30px;
+    text-align: center;
+    color: #000;
+    font-size: 20px;
+}
+
+/* 壁纸-图片 结束 */
+
+
+/* 壁纸-视频 开始 */
+
+#bizhi-video>dl {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+#bizhi-video>dl>dt {
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.422);
+    color: white;
+    font-size: 25px;
+    padding-left: 15px;
+}
+
+#bizhi-video>dl>dt::before {
+    content: "名称：";
+}
+
+#bizhi-video>dl>dd {
+    width: 100%;
+    margin: auto;
+    position: relative;
+    top: 5px;
+    padding-bottom: 46%;
+}
+
+#bizhi-video>dl>dd>video {
+    width: 100%;
+    height: 100%;
+    border: 2px solid #000;
+    position: absolute;
+    object-fit: cover;
+}
+
+/* 壁纸-视频 结束 */
