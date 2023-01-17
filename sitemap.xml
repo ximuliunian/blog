@@ -11,6 +11,15 @@
   </url>
   
   <url>
+    <loc>https://www.ximuliunian.cf/tags/index.html</loc>
+    
+    <lastmod>2023-01-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://www.ximuliunian.cf/posts/54dd835f.html</loc>
     
     <lastmod>2023-01-17</lastmod>
@@ -272,6 +281,42 @@
   </url>
   
   <url>
+    <loc>https://www.ximuliunian.cf/posts/3a7ff003.html</loc>
+    
+    <lastmod>2023-01-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.ximuliunian.cf/posts/5266bcdf.html</loc>
+    
+    <lastmod>2023-01-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.ximuliunian.cf/posts/67bd69da.html</loc>
+    
+    <lastmod>2023-01-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.ximuliunian.cf/posts/7a06e86e.html</loc>
+    
+    <lastmod>2023-01-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://www.ximuliunian.cf/posts/e74b0118.html</loc>
     
     <lastmod>2023-01-17</lastmod>
@@ -446,6 +491,13 @@
   </url>
   
   <url>
+    <loc>https://www.ximuliunian.cf/tags/%E6%B8%B8%E6%88%8F/</loc>
+    <lastmod>2023-01-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://www.ximuliunian.cf/tags/%E4%BF%AE%E5%A4%8D/</loc>
     <lastmod>2023-01-17</lastmod>
     <changefreq>weekly</changefreq>
@@ -491,6 +543,13 @@
   
   <url>
     <loc>https://www.ximuliunian.cf/categories/PC%E7%AB%AF/%E5%B7%A5%E5%85%B7/</loc>
+    <lastmod>2023-01-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.ximuliunian.cf/categories/PC%E7%AB%AF/%E6%B8%B8%E6%88%8F/</loc>
     <lastmod>2023-01-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
