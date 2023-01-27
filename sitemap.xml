@@ -56,24 +56,6 @@
   </url>
   
   <url>
-    <loc>https://www.ximuliunian.cf/posts/8a470e34.html</loc>
-    
-    <lastmod>2023-01-27</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.ximuliunian.cf/posts/e4997ba4.html</loc>
-    
-    <lastmod>2023-01-27</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://www.ximuliunian.cf/posts/694a752a.html</loc>
     
     <lastmod>2023-01-27</lastmod>
@@ -201,6 +183,24 @@
   
   <url>
     <loc>https://www.ximuliunian.cf/posts/fbaa6bb4.html</loc>
+    
+    <lastmod>2023-01-27</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.ximuliunian.cf/posts/8a470e34.html</loc>
+    
+    <lastmod>2023-01-27</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.ximuliunian.cf/posts/e4997ba4.html</loc>
     
     <lastmod>2023-01-27</lastmod>
     
@@ -425,6 +425,15 @@
   </url>
   
   <url>
+    <loc>https://www.ximuliunian.cf/posts/d2a40ed8.html</loc>
+    
+    <lastmod>2023-01-27</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://www.ximuliunian.cf/Download/Android.html</loc>
     
     <lastmod>2023-01-27</lastmod>
@@ -549,6 +558,13 @@
     <priority>0.2</priority>
   </url>
   
+  <url>
+    <loc>https://www.ximuliunian.cf/tags/%E5%A8%B1%E4%B9%90/</loc>
+    <lastmod>2023-01-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
 
   
   <url>
@@ -601,7 +617,21 @@
   </url>
   
   <url>
+    <loc>https://www.ximuliunian.cf/categories/%E7%A7%BB%E5%8A%A8%E7%AB%AF/</loc>
+    <lastmod>2023-01-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://www.ximuliunian.cf/categories/PC%E7%AB%AF/%E6%B8%B8%E6%88%8F/</loc>
+    <lastmod>2023-01-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.ximuliunian.cf/categories/%E7%A7%BB%E5%8A%A8%E7%AB%AF/%E5%A8%B1%E4%B9%90/</loc>
     <lastmod>2023-01-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
