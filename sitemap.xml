@@ -2,33 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://www.ximuliunian.cf/wallpaper/TuPian.html</loc>
-    
-    <lastmod>2023-01-28</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.ximuliunian.cf/wallpaper/TuPian/2023-1-15.html</loc>
-    
-    <lastmod>2023-01-28</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.ximuliunian.cf/wallpaper/TuPian/2023-1-27.html</loc>
-    
-    <lastmod>2023-01-28</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://www.ximuliunian.cf/manifest.json</loc>
     
     <lastmod>2023-01-28</lastmod>
@@ -56,7 +29,7 @@
   </url>
   
   <url>
-    <loc>https://www.ximuliunian.cf/posts/c09ec291.html</loc>
+    <loc>https://www.ximuliunian.cf/wallpaper/TuPian.html</loc>
     
     <lastmod>2023-01-28</lastmod>
     
@@ -65,7 +38,16 @@
   </url>
   
   <url>
-    <loc>https://www.ximuliunian.cf/categories/index.html</loc>
+    <loc>https://www.ximuliunian.cf/wallpaper/TuPian/2023-1-15.html</loc>
+    
+    <lastmod>2023-01-28</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.ximuliunian.cf/wallpaper/TuPian/2023-1-27.html</loc>
     
     <lastmod>2023-01-28</lastmod>
     
@@ -201,6 +183,15 @@
   
   <url>
     <loc>https://www.ximuliunian.cf/posts/ac31939a.html</loc>
+    
+    <lastmod>2023-01-28</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.ximuliunian.cf/posts/c09ec291.html</loc>
     
     <lastmod>2023-01-28</lastmod>
     
@@ -425,7 +416,52 @@
   </url>
   
   <url>
+    <loc>https://www.ximuliunian.cf/posts/4b825cf9.html</loc>
+    
+    <lastmod>2023-01-28</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://www.ximuliunian.cf/posts/d2a40ed8.html</loc>
+    
+    <lastmod>2023-01-28</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.ximuliunian.cf/posts/6db52af6.html</loc>
+    
+    <lastmod>2023-01-28</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.ximuliunian.cf/posts/43e19c6b.html</loc>
+    
+    <lastmod>2023-01-28</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.ximuliunian.cf/posts/ec9f128a.html</loc>
+    
+    <lastmod>2023-01-28</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.ximuliunian.cf/posts/c48921a8.html</loc>
     
     <lastmod>2023-01-28</lastmod>
     
@@ -444,6 +480,15 @@
   
   <url>
     <loc>https://www.ximuliunian.cf/Download/Windows.html</loc>
+    
+    <lastmod>2023-01-28</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.ximuliunian.cf/categories/index.html</loc>
     
     <lastmod>2023-01-28</lastmod>
     
@@ -632,6 +677,13 @@
   
   <url>
     <loc>https://www.ximuliunian.cf/categories/%E7%A7%BB%E5%8A%A8%E7%AB%AF/%E5%A8%B1%E4%B9%90/</loc>
+    <lastmod>2023-01-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.ximuliunian.cf/categories/%E7%A7%BB%E5%8A%A8%E7%AB%AF/%E5%B7%A5%E5%85%B7/</loc>
     <lastmod>2023-01-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
