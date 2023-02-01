@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>二叉树</title>
+      <link href="/posts/e85d694a.html"/>
+      <url>/posts/e85d694a.html</url>
+      
+        <content type="html"><![CDATA[<h2 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h2><p>满足以下条件就是二叉树：</p><ol><li>本身是有序树，分别称为左子树和右子树组成</li><li>树中包含的各个节点的度不能超过 2，即只能是 0、1 或者 2</li></ol><blockquote><p>有三个结点的二叉树总共有五种结构</p></blockquote><h2 id="数与二叉树的区别"><a href="#数与二叉树的区别" class="headerlink" title="数与二叉树的区别"></a>数与二叉树的区别</h2><ol><li>二叉树中最大的结点为2，二数中不限制结点的数</li><li>二叉树是有有序数，及时只有一个几点也要指出是左子树还是右子树。数是可以有序树也可以是无序树</li></ol><p><img src="https://link.jscdn.cn/sharepoint/aHR0cHM6Ly9ubHFwLW15LnNoYXJlcG9pbnQuY29tLzppOi9nL3BlcnNvbmFsL2EzNDM2NTI4Mzg1X25scXBfb25taWNyb3NvZnRfY29tL0VaNlNjekNhNWlCT3VZNUJWSElEbjNFQktyQ211ekV0Tmo0RGtGZnR4dU1RTkE_ZT05THpjZ04.jpg" alt=""></p><h2 id="二叉树的性质"><a href="#二叉树的性质" class="headerlink" title="二叉树的性质"></a>二叉树的性质</h2><ol><li>二叉树第i层（i&gt;=1）上至多有2^n-1^个结点</li><li>深度为k（k&gt;=1）的二叉树至多有2^k-1^个结点</li><li>对任何一颗二叉树，若其叶子结点数位n0，度为2的结点数位n2，则n0=n2+1</li><li>对任何一颗二叉树，若其总结点数为n，度为2的结点数位n2，则度为1的结点n1=n-2*n2-1</li></ol><h2 id="满二叉树的性质"><a href="#满二叉树的性质" class="headerlink" title="满二叉树的性质"></a>满二叉树的性质</h2><ol><li>满足普通二叉树的性质</li><li>满二叉树中第 i 层的节点数为 2^i-1^ 个。</li><li>深度为 k 的满二叉树必有 2^k^-1 个节点 ，叶子数为 2^k-1^。</li><li>满二叉树中不存在度为 1 的节点，每一个分支点中都两棵深度相同的子树，且叶子节点都在最底层。</li><li>具有 n 个节点的满二叉树的深度为 log2(n+1)</li></ol><p><img src="https://link.jscdn.cn/sharepoint/aHR0cHM6Ly9ubHFwLW15LnNoYXJlcG9pbnQuY29tLzppOi9nL3BlcnNvbmFsL2EzNDM2NTI4Mzg1X25scXBfb25taWNyb3NvZnRfY29tL0VRM2toY2NiellWSW1TR0ZpdjFvM19BQk42dnJSOWhpMG9seHA0YU1MRjAtdEE_ZT03b0M4QXA.jpg" alt=""></p><h2 id="完全二叉树的性质"><a href="#完全二叉树的性质" class="headerlink" title="完全二叉树的性质"></a>完全二叉树的性质</h2><ol><li>满足普通二叉树的性质</li><li>当 i&gt;1 时，父亲结点为结点 [ i / 2 ]，左孩子结点为2 <em> i，右孩子结点为2 </em> i + 1。（i=1 时，表示的是根结点，无父亲结点）</li><li>如果 2 <em> i&gt;n（总结点的个数），则结点 i 肯定没有左孩子（为叶子结点）；否则其左孩子是结点 2 </em> i</li><li>如果 2 <em> i + 1 &gt; n ，则结点 i 肯定没有右孩子；否则右孩子是结点 2 </em> i + 1 </li><li>具有n个结点的完全二叉树的高度为[log2n]+1</li></ol><p><img src="https://link.jscdn.cn/sharepoint/aHR0cHM6Ly9ubHFwLW15LnNoYXJlcG9pbnQuY29tLzppOi9nL3BlcnNvbmFsL2EzNDM2NTI4Mzg1X25scXBfb25taWNyb3NvZnRfY29tL0VVS25qdTRENkdaTGlCZmlZbVZHM2lZQkNNVWVzcHlQaWZHOHZQZzdiTFhpQnc_ZT1xZzBjTVg.jpg" alt=""></p><h2 id="二叉树的存储"><a href="#二叉树的存储" class="headerlink" title="二叉树的存储"></a>二叉树的存储</h2><p>​        顺序存储结构：将普通二叉树转为完全二叉树进行存储<br>​        链式存储结构：结点包含数据域，左指针域(指向左孩子结点)，右指针域(指向右孩子结点)</p><h2 id="二叉树的遍历"><a href="#二叉树的遍历" class="headerlink" title="二叉树的遍历"></a>二叉树的遍历</h2><p>前序遍历：根、左、右</p><p>中序遍历：左、根、右</p><p>后序遍历：左、右、根</p><h2 id="二叉树的度"><a href="#二叉树的度" class="headerlink" title="二叉树的度"></a>二叉树的度</h2><p>树中所有结点的度数的最大值。二叉树的度小于等于2，因为二叉树的定义要求二叉树中任意结点的度数（结点的分支数）小于等于2</p><h2 id="求二叉树的结点"><a href="#求二叉树的结点" class="headerlink" title="求二叉树的结点"></a>求二叉树的结点</h2><p>n0=n2+1<br>n=n0+n1+n2</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 算法 </tag>
+            
+            <tag> 二叉树 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>链表边输入边排序</title>
       <link href="/posts/77cc6c55.html"/>
       <url>/posts/77cc6c55.html</url>
@@ -1395,7 +1422,7 @@
       <link href="/css/font.css"/>
       <url>/css/font.css</url>
       
-        <content type="html"><![CDATA[@font-face {  font-family: "iconfont";  /* Project id 3862650 */  /* Color fonts */  src:    url('//at.alicdn.com/t/c/font_3862650_p5b2d7052pn.woff2?t=1675128384415') format('woff2'),    url('//at.alicdn.com/t/c/font_3862650_p5b2d7052pn.woff?t=1675128384415') format('woff'),    url('//at.alicdn.com/t/c/font_3862650_p5b2d7052pn.ttf?t=1675128384415') format('truetype');}.iconfont {  font-family: "iconfont" !important;  /* font-size: 16px; */  font-style: normal;  -webkit-font-smoothing: antialiased;  -moz-osx-font-smoothing: grayscale;}.icon-twitter:before {  content: "\e613";}.icon-facebook:before {  content: "\eab3";}.icon-telegram:before {  content: "\e60d";}.icon-youjian:before {  content: "\e60c";}.icon-linux:before {  content: "\e80b";}.icon-shipin:before {  content: "\e606";}.icon-tupian:before {  content: "\e607";}.icon-zhutibizhi:before {  content: "\e682";}.icon-shouji:before {  content: "\e61a";}.icon-pcduandiannao:before {  content: "\e61f";}.icon-git:before {  content: "\e708";}.icon-qianduan:before {  content: "\e61c";}.icon-biji:before {  content: "\e690";}.icon-wenzhang:before {  content: "\e61d";}.icon-cyuyan:before {  content: "\e61b";}.icon-suiji:before {  content: "\fc34";}.icon-QQ:before {  content: "\e65e";}.icon-github:before {  content: "\e66f";}.icon-xiazai:before {  content: "\e600";}.icon-bilibili:before {  content: "\e609";}]]></content>
+        <content type="html"><![CDATA[@font-face {  font-family: "iconfont";  /* Project id 3862650 */  /* Color fonts */  src:    url('//at.alicdn.com/t/c/font_3862650_bmmua57ohed.woff2?t=1675221022967') format('woff2'),    url('//at.alicdn.com/t/c/font_3862650_bmmua57ohed.woff?t=1675221022967') format('woff'),    url('//at.alicdn.com/t/c/font_3862650_bmmua57ohed.ttf?t=1675221022967') format('truetype');}.iconfont {  font-family: "iconfont" !important;  font-style: normal;  -webkit-font-smoothing: antialiased;  -moz-osx-font-smoothing: grayscale;}.icon-java:before {  content: "\e639";}.icon-jichengsuanfa:before {  content: "\e678";}.icon-twitter:before {  content: "\e613";}.icon-facebook:before {  content: "\eab3";}.icon-telegram:before {  content: "\e60d";}.icon-youjian:before {  content: "\e60c";}.icon-linux:before {  content: "\e80b";}.icon-shipin:before {  content: "\e606";}.icon-tupian:before {  content: "\e607";}.icon-zhutibizhi:before {  content: "\e682";}.icon-shouji:before {  content: "\e61a";}.icon-pcduandiannao:before {  content: "\e61f";}.icon-git:before {  content: "\e708";}.icon-qianduan:before {  content: "\e61c";}.icon-biji:before {  content: "\e690";}.icon-wenzhang:before {  content: "\e61d";}.icon-cyuyan:before {  content: "\e61b";}.icon-suiji:before {  content: "\fc34";}.icon-QQ:before {  content: "\e65e";}.icon-xiazai:before {  content: "\e600";}.icon-bilibili:before {  content: "\e609";}]]></content>
       
     </entry>
     
