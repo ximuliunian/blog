@@ -506,15 +506,6 @@
   </url>
   
   <url>
-    <loc>https://www.ximuliunian.top/Download/Android.html</loc>
-    
-    <lastmod>2023-03-14</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://www.ximuliunian.top/Download/Windows.html</loc>
     
     <lastmod>2023-03-14</lastmod>
@@ -615,6 +606,15 @@
   
   <url>
     <loc>https://www.ximuliunian.top/Download/games/PC/%E9%80%81%E5%B0%8F%E7%BE%8A%E5%9B%9E%E5%AE%B6.html</loc>
+    
+    <lastmod>2023-03-14</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.ximuliunian.top/Download/Android.html</loc>
     
     <lastmod>2023-03-14</lastmod>
     
