@@ -706,6 +706,17 @@
     
     
     <entry>
+      <title>网址导航</title>
+      <link href="/%E5%AF%BC%E8%88%AA.html"/>
+      <url>/%E5%AF%BC%E8%88%AA.html</url>
+      
+        <content type="html"><![CDATA[<!-- <div class="site-card-group"> --><!-- <a class="site-card" href="链接"><div class="img"><img src="https://www.ximuliunian.top/boke-image/网址导航/"/></div><div class="info"><span class="title">标题</span><span class="desc">描述</span></div></a> --><!-- <a class="site-card" href="链接"><div class="img"><img src="https://www.ximuliunian.top/boke-image/网址导航/"/></div><div class="info"><span class="title">标题</span><span class="desc">描述</span></div></a> --><!-- </div> --><h2 id="影视剧场"><a href="#影视剧场" class="headerlink" title="影视剧场"></a>影视剧场</h2><div class="site-card-group"><a class="site-card" href="https://ysgc.vip"><div class="img"><img src="https://www.ximuliunian.top/boke-image/网址导航/影视剧场/影视工厂.jpg"/></div><div class="info"><span class="title">影视工厂</span><span class="desc">提供高清无删减电影免费在线观看大片</span></div></a><a class="site-card" href="https://yszj.tv"><div class="img"><img src="https://www.ximuliunian.top/boke-image/网址导航/影视剧场/影视之家.jpg"/></div><div class="info"><span class="title">影视之家</span><span class="desc">影视之家涵盖大量免费的VIP资源、最新上映大片及动漫视频</span></div></a></div><h2 id="游戏平台"><a href="#游戏平台" class="headerlink" title="游戏平台"></a>游戏平台</h2><div class="site-card-group"><a class="site-card" href="https://store.steampowered.com"><div class="img"><img src="https://www.ximuliunian.top/boke-image/网址导航/游戏平台/Steam.jpg"/></div><div class="info"><span class="title">Steam</span><span class="desc">Steam是全球最大的综合性数字发行平台之一</span></div></a><a class="site-card" href="https://store.epicgames.com/zh-CN"><div class="img"><img src="https://www.ximuliunian.top/boke-image/网址导航/游戏平台/Epic.jpg"/></div><div class="info"><span class="title">Epic</span><span class="desc">Epic Games是近十年来最负盛名的游戏制作团队之一</span></div></a><a class="site-card" href="https://rutracker.org"><div class="img"><img src="https://www.ximuliunian.top/boke-image/网址导航/游戏平台/Rutracker.jpg"/></div><div class="info"><span class="title">Rutracker</span><span class="desc">素有盗版Steam之称，下载使用的是磁力</span></div></a></div>]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>移动端</title>
       <link href="/Download/Android.html"/>
       <url>/Download/Android.html</url>
@@ -765,7 +776,7 @@
       <link href="/css/font.css"/>
       <url>/css/font.css</url>
       
-        <content type="html"><![CDATA[@font-face {  font-family: "iconfont";  /* Project id 3862650 */  /* Color fonts */  src:    url('//at.alicdn.com/t/c/font_3862650_bzu5nwn5xsh.woff2?t=1675520255114') format('woff2'),    url('//at.alicdn.com/t/c/font_3862650_bzu5nwn5xsh.woff?t=1675520255114') format('woff'),    url('//at.alicdn.com/t/c/font_3862650_bzu5nwn5xsh.ttf?t=1675520255114') format('truetype');}.iconfont {  font-family: "iconfont" !important;  font-style: normal;  -webkit-font-smoothing: antialiased;  -moz-osx-font-smoothing: grayscale;}.icon-java:before {  content: "\e639";}.icon-jichengsuanfa:before {  content: "\e678";}.icon-twitter:before {  content: "\e613";}.icon-facebook:before {  content: "\eab3";}.icon-telegram:before {  content: "\e60d";}.icon-youjian:before {  content: "\e60c";}.icon-linux:before {  content: "\e80b";}.icon-shipin:before {  content: "\e606";}.icon-tupian:before {  content: "\e607";}.icon-zhutibizhi:before {  content: "\e682";}.icon-shouji:before {  content: "\e61a";}.icon-pcduandiannao:before {  content: "\e61f";}.icon-git:before {  content: "\e708";}.icon-qianduan:before {  content: "\e61c";}.icon-biji:before {  content: "\e690";}.icon-wenzhang:before {  content: "\e61d";}.icon-cyuyan:before {  content: "\e61b";}.icon-suiji:before {  content: "\fc34";}.icon-QQ:before {  content: "\e65e";}.icon-xiazai:before {  content: "\e600";}.icon-bilibili:before {  content: "\e609";}]]></content>
+        <content type="html"><![CDATA[@font-face {  font-family: "iconfont";   /* Project id 3862650 */  /* Color fonts */  src:        url('//at.alicdn.com/t/c/font_3862650_g1xp7u4nxua.woff2?t=1679486264149') format('woff2'),       url('//at.alicdn.com/t/c/font_3862650_g1xp7u4nxua.woff?t=1679486264149') format('woff'),       url('//at.alicdn.com/t/c/font_3862650_g1xp7u4nxua.ttf?t=1679486264149') format('truetype');}.iconfont {  font-family: "iconfont" !important;  font-style: normal;  -webkit-font-smoothing: antialiased;  -moz-osx-font-smoothing: grayscale;}.icon-wangluo:before {  content: "\e677";}.icon-java:before {  content: "\e639";}.icon-jichengsuanfa:before {  content: "\e678";}.icon-telegram:before {  content: "\e60d";}.icon-youjian:before {  content: "\e60c";}.icon-linux:before {  content: "\e80b";}.icon-shipin:before {  content: "\e606";}.icon-tupian:before {  content: "\e607";}.icon-zhutibizhi:before {  content: "\e682";}.icon-shouji:before {  content: "\e61a";}.icon-pcduandiannao:before {  content: "\e61f";}.icon-git:before {  content: "\e708";}.icon-qianduan:before {  content: "\e61c";}.icon-biji:before {  content: "\e690";}.icon-wenzhang:before {  content: "\e61d";}.icon-cyuyan:before {  content: "\e61b";}.icon-suiji:before {  content: "\fc34";}.icon-QQ:before {  content: "\e65e";}.icon-xiazai:before {  content: "\e600";}.icon-bilibili:before {  content: "\e609";}]]></content>
       
     </entry>
     
