@@ -47,7 +47,7 @@
       
         <tags>
             
-            <tag> Git </tag>
+            <tag> 小知识 </tag>
             
             <tag> SSH </tag>
             
@@ -73,6 +73,8 @@
       
       
         <tags>
+            
+            <tag> 代码 </tag>
             
             <tag> 脚本 </tag>
             
@@ -119,12 +121,14 @@
       
       <categories>
           
-          <category> 文章 </category>
+          <category> 笔记 </category>
           
       </categories>
       
       
         <tags>
+            
+            <tag> 代码 </tag>
             
             <tag> 脚本 </tag>
             
@@ -157,6 +161,8 @@
             
             <tag> 代码 </tag>
             
+            <tag> C语言 </tag>
+            
             <tag> 算法 </tag>
             
         </tags>
@@ -184,6 +190,8 @@
             
             <tag> 代码 </tag>
             
+            <tag> C语言 </tag>
+            
             <tag> 算法 </tag>
             
         </tags>
@@ -209,6 +217,8 @@
       
         <tags>
             
+            <tag> C语言 </tag>
+            
             <tag> 算法 </tag>
             
             <tag> 二叉树 </tag>
@@ -229,16 +239,18 @@
       
       <categories>
           
-          <category> C语言 </category>
+          <category> 笔记 </category>
           
       </categories>
       
       
         <tags>
             
+            <tag> 代码 </tag>
+            
             <tag> 小实例 </tag>
             
-            <tag> 代码 </tag>
+            <tag> C语言 </tag>
             
         </tags>
       
@@ -266,6 +278,8 @@
             <tag> 系统 </tag>
             
             <tag> Linux </tag>
+            
+            <tag> CentOS 7 </tag>
             
         </tags>
       
@@ -310,16 +324,18 @@
       
       <categories>
           
-          <category> C语言 </category>
+          <category> 笔记 </category>
           
       </categories>
       
       
         <tags>
             
+            <tag> 代码 </tag>
+            
             <tag> 小实例 </tag>
             
-            <tag> 代码 </tag>
+            <tag> C语言 </tag>
             
         </tags>
       
@@ -479,7 +495,7 @@
       
         <tags>
             
-            <tag> 修改 </tag>
+            <tag> 小知识 </tag>
             
         </tags>
       
