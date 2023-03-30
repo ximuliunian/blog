@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://www.ximuliunian.top/manifest.json</loc>
+    <loc>https://www.ximuliunian.top/%E5%AF%BC%E8%88%AA.html</loc>
     
     <lastmod>2023-03-30</lastmod>
     
@@ -11,7 +11,16 @@
   </url>
   
   <url>
-    <loc>https://www.ximuliunian.top/%E5%AF%BC%E8%88%AA.html</loc>
+    <loc>https://www.ximuliunian.top/wallpaper/TuPian/2023-3-4.html</loc>
+    
+    <lastmod>2023-03-30</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.ximuliunian.top/manifest.json</loc>
     
     <lastmod>2023-03-30</lastmod>
     
@@ -66,15 +75,6 @@
   
   <url>
     <loc>https://www.ximuliunian.top/wallpaper/TuPian/2023-2-4.html</loc>
-    
-    <lastmod>2023-03-30</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.ximuliunian.top/wallpaper/TuPian/2023-3-4.html</loc>
     
     <lastmod>2023-03-30</lastmod>
     
@@ -327,6 +327,24 @@
   
   <url>
     <loc>https://www.ximuliunian.top/categories/index.html</loc>
+    
+    <lastmod>2023-03-30</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.ximuliunian.top/Download/PC%E7%AB%AF(windows)/%E6%B8%B8%E6%88%8F/%E6%A4%8D%E7%89%A9%E5%A4%A7%E6%88%98%E5%83%B5%E5%B0%B8.html</loc>
+    
+    <lastmod>2023-03-30</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.ximuliunian.top/Download/PC%E7%AB%AF(windows)/%E6%B8%B8%E6%88%8F/%E8%97%90%E8%A7%86.html</loc>
     
     <lastmod>2023-03-30</lastmod>
     
@@ -804,24 +822,6 @@
   
   <url>
     <loc>https://www.ximuliunian.top/Download/PC%E7%AB%AF(windows)/%E6%B8%B8%E6%88%8F/%E5%B9%BD%E7%81%B5%E7%BA%BF%EF%BC%9A%E4%B8%9C%E4%BA%AC.html</loc>
-    
-    <lastmod>2023-03-30</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.ximuliunian.top/Download/PC%E7%AB%AF(windows)/%E6%B8%B8%E6%88%8F/%E6%A4%8D%E7%89%A9%E5%A4%A7%E6%88%98%E5%83%B5%E5%B0%B8.html</loc>
-    
-    <lastmod>2023-03-30</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.ximuliunian.top/Download/PC%E7%AB%AF(windows)/%E6%B8%B8%E6%88%8F/%E8%97%90%E8%A7%86.html</loc>
     
     <lastmod>2023-03-30</lastmod>
     
