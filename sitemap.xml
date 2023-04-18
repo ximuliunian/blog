@@ -2,6 +2,33 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.ximuliunian.top/manifest.json</loc>
+    
+    <lastmod>2023-04-18</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.ximuliunian.top/tags/index.html</loc>
+    
+    <lastmod>2023-04-18</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.ximuliunian.top/wallpaper/ShiPin.html</loc>
+    
+    <lastmod>2023-04-18</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://www.ximuliunian.top/wallpaper/TuPian.html</loc>
     
     <lastmod>2023-04-18</lastmod>
@@ -48,33 +75,6 @@
   
   <url>
     <loc>https://www.ximuliunian.top/wallpaper/TuPian/2023-4-13.html</loc>
-    
-    <lastmod>2023-04-18</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.ximuliunian.top/manifest.json</loc>
-    
-    <lastmod>2023-04-18</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.ximuliunian.top/tags/index.html</loc>
-    
-    <lastmod>2023-04-18</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.ximuliunian.top/wallpaper/ShiPin.html</loc>
     
     <lastmod>2023-04-18</lastmod>
     
@@ -363,24 +363,6 @@
   
   <url>
     <loc>https://www.ximuliunian.top/categories/index.html</loc>
-    
-    <lastmod>2023-04-18</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.ximuliunian.top/Download/PC%E7%AB%AF(windows)/%E5%B7%A5%E5%85%B7/IDEA.html</loc>
-    
-    <lastmod>2023-04-18</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.ximuliunian.top/Download/PC%E7%AB%AF(windows)/%E5%B7%A5%E5%85%B7/IDM%E6%B3%A8%E5%86%8C%E6%9C%BA.html</loc>
     
     <lastmod>2023-04-18</lastmod>
     
@@ -885,6 +867,24 @@
   
   <url>
     <loc>https://www.ximuliunian.top/Download/PC%E7%AB%AF(windows)/%E5%B7%A5%E5%85%B7/FastStone.html</loc>
+    
+    <lastmod>2023-04-18</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.ximuliunian.top/Download/PC%E7%AB%AF(windows)/%E5%B7%A5%E5%85%B7/IDEA.html</loc>
+    
+    <lastmod>2023-04-18</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.ximuliunian.top/Download/PC%E7%AB%AF(windows)/%E5%B7%A5%E5%85%B7/IDM%E6%B3%A8%E5%86%8C%E6%9C%BA.html</loc>
     
     <lastmod>2023-04-18</lastmod>
     
