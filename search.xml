@@ -835,17 +835,6 @@
     
     
     <entry>
-      <title>日记</title>
-      <link href="/geren/riji.html"/>
-      <url>/geren/riji.html</url>
-      
-        <content type="html"><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="抱歉, 这个密码看着不太对, 请再试试." data-whm="抱歉, 这个文章不能被校验, 不过您还是能看看解密后的内容.">  <script id="hbeData" type="hbeData" data-hmacdigest="4a432f1396d3dcd710711ec61014c212717924cbd18a392415a0d1be60138e5f">8de1e016654f785e63b45e374d81e24bbdc535b4e24868a4a96c06bad60e2218</script>  <div class="hbe hbe-content">    <div class="hbe hbe-input hbe-input-xray">      <input class="hbe hbe-input-field hbe-input-field-xray" type="password" id="hbePass">      <label class="hbe hbe-input-label hbe-input-label-xray" for="hbePass">        <span class="hbe hbe-input-label-content hbe-input-label-content-xray">您好, 这里需要密码.</span>      </label>      <svg class="hbe hbe-graphic hbe-graphic-xray" width="300%" height="100%" viewBox="0 0 1200 60" preserveAspectRatio="none">        <path d="M0,56.5c0,0,298.666,0,399.333,0C448.336,56.5,513.994,46,597,46c77.327,0,135,10.5,200.999,10.5c95.996,0,402.001,0,402.001,0"></path>        <path d="M0,2.5c0,0,298.666,0,399.333,0C448.336,2.5,513.994,13,597,13c77.327,0,135-10.5,200.999-10.5c95.996,0,402.001,0,402.001,0"></path>      </svg>    </div>  </div></div><script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>更新日志</title>
       <link href="/geren/rizhi.html"/>
       <url>/geren/rizhi.html</url>
@@ -862,6 +851,17 @@
       <url>/geren/wendang.html</url>
       
         <content type="html"><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="抱歉, 这个密码看着不太对, 请再试试." data-whm="抱歉, 这个文章不能被校验, 不过您还是能看看解密后的内容.">  <script id="hbeData" type="hbeData" data-hmacdigest="3eb22abb566919991762bddab1f870c03dda5365994104ca2cdc8fff7b33dfd0">41584b4cdb3c7b387be20dd74d334d3e00c267b713b500d5ea32a1024d8e23ae8c299357867cb28366526659602857a7f81040fe25b08ba50e14809acf46d95b</script>  <div class="hbe hbe-content">    <div class="hbe hbe-input hbe-input-xray">      <input class="hbe hbe-input-field hbe-input-field-xray" type="password" id="hbePass">      <label class="hbe hbe-input-label hbe-input-label-xray" for="hbePass">        <span class="hbe hbe-input-label-content hbe-input-label-content-xray">您好, 这里需要密码.</span>      </label>      <svg class="hbe hbe-graphic hbe-graphic-xray" width="300%" height="100%" viewBox="0 0 1200 60" preserveAspectRatio="none">        <path d="M0,56.5c0,0,298.666,0,399.333,0C448.336,56.5,513.994,46,597,46c77.327,0,135,10.5,200.999,10.5c95.996,0,402.001,0,402.001,0"></path>        <path d="M0,2.5c0,0,298.666,0,399.333,0C448.336,2.5,513.994,13,597,13c77.327,0,135-10.5,200.999-10.5c95.996,0,402.001,0,402.001,0"></path>      </svg>    </div>  </div></div><script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>唠叨一下</title>
+      <link href="/geren/xysy.html"/>
+      <url>/geren/xysy.html</url>
+      
+        <content type="html"><![CDATA[<div class="timeline undefined"><div class='timeline-item headline'><div class='timeline-item-title'><div class='item-circle'><p>等待更新中，莫急~~~</p></div></div></div><div class='timeline-item'><div class='timeline-item-title'><div class='item-circle'><p>2023年4月20日</p></div></div><div class='timeline-item-content'><p>以前白嫖的E5账号，今天一看，被封了，难受ing~~<br>这导致的结果就是，我博客上面的所有使用<code>OneDrive</code>网盘下载的所有链接将会失效（虽然还有百度网盘），这就很难受，只能尽快找替代品了<br><img src="https://boke-image.pages.dev/个人/闲言碎语/2023-04-20.png" alt=""></p></div></div></div>]]></content>
       
     </entry>
     
