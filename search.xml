@@ -29,6 +29,31 @@
     
     
     <entry>
+      <title>通过Cloudflare加速GitHub仓库</title>
+      <link href="/posts/cb472940.html"/>
+      <url>/posts/cb472940.html</url>
+      
+        <content type="html"><![CDATA[<p>首先，<code>GitHub</code>了解点计算机的都不陌生，全球最大的同性交友平台和众多良心软件的开源地</p><p>稍微钻研一下可以就可以发现<code>GitHub</code>的很多妙用，比如搭建图床、搭建博客……因为<code>GitHub</code>的服务器在国外，所以就导致很多时候<code>GitHub</code>打不开，创建的仓库访问也慢，用来建图床半天才把你的图片给加载出来或者半天才进你的博客站点，这显然不是我们想看到的结果，所以，就要说说今天的主角：<code>Cloudflare</code></p><p><code>Cloudflare</code>是一个全球网络 ，<strong>旨在让您连接到 <code>Internet</code> 的一切安全、私密、快速和可靠</strong>。保护您的网站、<code>API</code> 和 <code>Internet</code> 应用程序。保护企业网络、员工和设备。编写和部署在网络边缘运行的代码——具体可以百度搜索一下，这里不过多赘述</p><p>通过这个<code>Cloudflare</code>部署之后又那些好处呢，最大的好处就是访问速度明显加快，不用在等待很长时间，毕竟等待时间最是枯燥乏味的</p><p>废话不多说，现在开始操作</p><h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><blockquote><p>本文是通过<code>GitHub</code>来进行演示</p></blockquote><p>首先你得有两个账号</p><p>一个是<code>GitHub</code>的一个是<code>Cloudflare</code>的，注册我就不多说了以下是官网</p><div calss='anzhiyu-tag-link'><a class="tag-Link" target="_blank" href="https://dash.cloudflare.com">    <div class="tag-link-tips">引用站外地址</div>    <div class="tag-link-bottom">        <div class="tag-link-left" style="background-image: url(https://api.iowen.cn/favicon/dash.cloudflare.com.png);"></div>        <div class="tag-link-right">            <div class="tag-link-title">Cloudflare</div>            <div class="tag-link-sitename">https://dash.cloudflare.com </div>        </div>        <i class="fa-solid fa-angle-right"></i>    </div>    </a></div><div calss='anzhiyu-tag-link'><a class="tag-Link" target="_blank" href="https://github.com">    <div class="tag-link-tips">引用站外地址</div>    <div class="tag-link-bottom">        <div class="tag-link-left" style="background-image: url(https://api.iowen.cn/favicon/github.com.png);"></div>        <div class="tag-link-right">            <div class="tag-link-title">Cloudflare</div>            <div class="tag-link-sitename">https://github.com </div>        </div>        <i class="fa-solid fa-angle-right"></i>    </div>    </a></div><h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><p>部署之前先要又一个仓库，无论是（<code>github.io</code>）还是普通的仓库，只要是公共的，都可以进行部署，当然也可以直接新建一个仓库</p><h3 id="创建仓库"><a href="#创建仓库" class="headerlink" title="创建仓库"></a>创建仓库</h3><blockquote><p>有仓库的直接跳过这一步</p></blockquote><p>在<code>GitHub</code>主页的左上角有个如下图的按钮</p><p><img src="https://boke-image.pages.dev/文章/笔记/通过Cloudflare加速GitHub仓库/1.png" alt=""></p><p>点New创建仓库；具体步骤如下所示</p><p><img src="https://boke-image.pages.dev/文章/笔记/通过Cloudflare加速GitHub仓库/1.1.png" alt=""></p><p>创建好的仓库</p><p><img src="https://boke-image.pages.dev/文章/笔记/通过Cloudflare加速GitHub仓库/1.2.png" alt=""></p><h3 id="Cloudflare部署"><a href="#Cloudflare部署" class="headerlink" title="Cloudflare部署"></a>Cloudflare部署</h3><p>首先登录<code>Cloudflare</code>点击<code>Pages</code></p><p><img src="https://boke-image.pages.dev/文章/笔记/通过Cloudflare加速GitHub仓库/2.png" alt=""></p><p>点击创建项目，在点击连接到<code>Git</code>，底下的两个是我之前创建部署内容，新创建的是什么都没有的</p><p><img src="https://boke-image.pages.dev/文章/笔记/通过Cloudflare加速GitHub仓库/2.1.png" alt=""></p><p>到这个页面你们是要进行登录一下<code>GitHub</code>的，我是登录过了，所以直接演示怎么部署，而且那两个使用中就是上一张图片的两个部署情况</p><p><img src="https://boke-image.pages.dev/文章/笔记/通过Cloudflare加速GitHub仓库/2.2.png" alt=""></p><p>在这里可以看到之前创建的那个仓库，点击选择仓库（出现小对钩），然后点击开始设置</p><p><img src="https://boke-image.pages.dev/文章/笔记/通过Cloudflare加速GitHub仓库/2.3.png" alt=""></p><p>出现以下页面后可以改我直接默认，没问题点击保存并部署，等待即可</p><p><img src="https://boke-image.pages.dev/文章/笔记/通过Cloudflare加速GitHub仓库/2.4.png" alt=""></p><p>出现如下界面代表部署成功，中间圈的那个网址是你这个仓库的站点，可以通过这个直接访问仓库内容，然后点击继续处理</p><p><img src="https://boke-image.pages.dev/文章/笔记/通过Cloudflare加速GitHub仓库/2.5.png" alt=""></p><p>在这里面可以设置自定义域名，至此部署完成，第一次部署可能会要等一会才会完全部署完成</p><blockquote><p>这个是自动部署，只要<code>GitHub</code>里面内容更新，<code>Cloudflare</code>也会同步更新</p></blockquote><h3 id="进行验证"><a href="#进行验证" class="headerlink" title="进行验证"></a>进行验证</h3><p>在<code>GitHub</code>仓库里面放了一张图片</p><p><img src="https://boke-image.pages.dev/文章/笔记/通过Cloudflare加速GitHub仓库/3.png" alt=""></p><p>通过站点加速访问</p><p><img src="https://boke-image.pages.dev/文章/笔记/通过Cloudflare加速GitHub仓库/3.1.png" alt=""></p><p>可以看到，使用的就是之前出现的站点</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 笔记 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> GitHub </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>CPU流泪器</title>
       <link href="/posts/80fb895b.html"/>
       <url>/posts/80fb895b.html</url>
