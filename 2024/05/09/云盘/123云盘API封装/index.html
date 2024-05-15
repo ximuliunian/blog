@@ -208,7 +208,7 @@ if (true) {
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.fasterxml.jackson.core<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jackson-databind<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.16.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>使用时会生成一个配置 <code>config/123pan.json</code> 这里面存放着 Access_Token 和它的过期时间基本上所有的请求都需要携带 Access_Token</p>
-<p>Access_Token 的获取会在文件加载时进行判断获取，也可以使用 <code>OneTwoThreeCloudPan.getAccessToken()</code> 进行手动获取，每次请求API时会先判断 Access_Token 是否可用</p>
+<p>Access_Token 的获取会在文件加载时进行判断获取，也可以使用 <code>OneTwoThreeCloudDisk.getAccessToken()</code> 进行手动获取，每次请求API时会先判断 Access_Token 是否可用</p>
 <p>请求如果请求失败会有三次重试机会，可以更改 <code>RETRY_MAX</code> 改变次数</p>
 <h2 id="API介绍"><a href="#API介绍" class="headerlink" title="API介绍"></a>API介绍</h2><p>所有的API都有些注释（这个API干什么用的以及需要什么参数），到时候按照要求来，返回值请参考官方文档，所有接口统一返回 <code>Map</code></p>
 <h3 id="常量介绍"><a href="#常量介绍" class="headerlink" title="常量介绍"></a>常量介绍</h3><p><code>CLIENT_ID</code>：申请到的客户端ID</p>
@@ -247,7 +247,7 @@ if (true) {
 <h4 id="创建分享链接"><a href="#创建分享链接" class="headerlink" title="创建分享链接"></a>创建分享链接</h4><p>官方文档：<a target="_blank" rel="noopener" href="https://123yunpan.yuque.com/org-wiki-123yunpan-muaork/cr6ced/dwd2ss0qnpab5i5s">创建分享链接 (yuque.com)</a></p>
 <p>工具API：<code>createSharedLink()</code></p>
 <h4 id="获取access-token"><a href="#获取access-token" class="headerlink" title="获取access_token"></a>获取access_token</h4><p>官方文档：<a target="_blank" rel="noopener" href="https://123yunpan.yuque.com/org-wiki-123yunpan-muaork/cr6ced/gn1nai4x0v0ry9ki">获取access_token (yuque.com)</a></p>
-<p>工具API：<code>OneTwoThreeCloudPan.getAccessToken()</code></p>
+<p>工具API：<code>OneTwoThreeCloudDisk.getAccessToken()</code></p>
 <h3 id="直链"><a href="#直链" class="headerlink" title="直链"></a>直链</h3><blockquote>
 <p>所有直链相关的API以 <code>straight</code> 开头</p>
 </blockquote>
