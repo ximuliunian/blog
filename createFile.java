@@ -4,7 +4,7 @@ import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.Scanner;
 
-public class CreateMarkdownFile {
+public class createFile {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in, Charset.forName("GBK"));
