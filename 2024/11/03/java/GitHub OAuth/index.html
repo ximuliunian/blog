@@ -54,7 +54,7 @@
   configTitle: '曦暮流年',
   title: 'GitHub OAuth',
   postAI: '',
-  pageFillDescription: '前置内容, 总体流程, 创建应用, 创建客户端ID和密钥, 代码, 代码 Demo, 配置文件, 使用本文将介绍如何基于协议让自己的网络应用集成第三方授权登录前置内容首先登录如果没有账号那就注册一个进入设置点击点击然后创建应用总体流程用户应用使用登录应用向请求权限用户询问是否同意授权用户同意授权应用携带授权码回调地址应用使用授权码获取应用校验客户端和授权码成功返回应用携带向发送请求创建应用文章按照上面表示填写数据信息尤其是回调地址那一块尤其重要因为在后续访问时填写参数和回调地址对不上的话会出问题的创建客户端和密钥文章复制一下客户端然后再生成一下看客户点密钥这个记得保存因为他只明文显示一次代码这里只展示一下最简单的流程信息代码会非常简陋版本情况代码案例地址配置文件客户端客户端密钥回调地址和写的回调要保持一致克隆下来上面的代码之后把配置信息填一下然后把代码跑起来使用这点里面的代码不涉及任何前端代码跑起来之后直接在游览器访问然后后端就会拼接并重定向到请求授权链接会出现下图文章点击绿色的按钮表示同意授权就会重定向到之前填写的授权链接并携带上了授权码像是以下这样此时后端回调地址被调用并接收到码就会根据码去请求令牌像是以下这样然后对这个令牌进行解析获取到后面的字符串获取到后会携带令牌向发送请求至此大公大功告成',
+  pageFillDescription: '前置内容, 总体流程, 创建应用, 创建客户端ID和密钥, 代码, 代码 Demo, 配置文件, 使用本文将介绍如何基于协议让自己的网络应用集成第三方授权登录前置内容首先登录如果没有账号那就注册一个进入设置点击点击然后创建应用总体流程用户应用使用登录应用向请求权限用户询问是否同意授权用户同意授权应用携带授权码回调地址应用使用授权码获取应用校验客户端和授权码成功返回应用携带向发送请求创建应用按照上面表示填写数据信息尤其是回调地址那一块尤其重要因为在后续访问时填写参数和回调地址对不上的话会出问题的创建客户端和密钥复制一下客户端然后再生成一下看客户点密钥这个记得保存因为他只明文显示一次代码这里只展示一下最简单的流程信息代码会非常简陋版本情况代码案例地址配置文件客户端客户端密钥回调地址和写的回调要保持一致克隆下来上面的代码之后把配置信息填一下然后把代码跑起来使用这点里面的代码不涉及任何前端代码跑起来之后直接在游览器访问然后后端就会拼接并重定向到请求授权链接会出现下图点击绿色的按钮表示同意授权就会重定向到之前填写的授权链接并携带上了授权码像是以下这样此时后端回调地址被调用并接收到码就会根据码去请求令牌像是以下这样然后对这个令牌进行解析获取到后面的字符串获取到后会携带令牌向发送请求至此大公大功告成',
   isPost: true,
   isHome: false,
   isHighlightShrink: false,
@@ -217,9 +217,9 @@ if (true) {
 
 
 
-<h2 id="创建应用"><a href="#创建应用" class="headerlink" title="创建应用"></a>创建应用</h2><p>![image-20241103193919752](<a target="_blank" rel="noopener" href="https://vip.123pan.cn/1816073777/blog-img/%E6%96%87%E7%AB%A0/Java/md.image/GitHub">https://vip.123pan.cn/1816073777/blog-img/文章/Java/md.image/GitHub</a> OAuth&#x2F;image-20241103193919752.png)</p>
+<h2 id="创建应用"><a href="#创建应用" class="headerlink" title="创建应用"></a>创建应用</h2><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://vip.123pan.cn/1816073777/blog-img/%E6%96%87%E7%AB%A0/Java/md.image/GitHub_OAuth/image-20241103193919752.png" alt="image-20241103193919752"></p>
 <p>按照上面表示填写数据信息，尤其是回调地址那一块尤其重要，因为在后续访问时填写参数和回调地址对不上的话会出问题的</p>
-<h3 id="创建客户端ID和密钥"><a href="#创建客户端ID和密钥" class="headerlink" title="创建客户端ID和密钥"></a>创建客户端ID和密钥</h3><p>![image-20241103194707994](<a target="_blank" rel="noopener" href="https://vip.123pan.cn/1816073777/blog-img/%E6%96%87%E7%AB%A0/Java/md.image/GitHub">https://vip.123pan.cn/1816073777/blog-img/文章/Java/md.image/GitHub</a> OAuth&#x2F;image-20241103194707994.png)</p>
+<h3 id="创建客户端ID和密钥"><a href="#创建客户端ID和密钥" class="headerlink" title="创建客户端ID和密钥"></a>创建客户端ID和密钥</h3><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://vip.123pan.cn/1816073777/blog-img/%E6%96%87%E7%AB%A0/Java/md.image/GitHub_OAuth/image-20241103194707994.png" alt="image-20241103194707994"></p>
 <p>复制一下客户端ID然后再生成一下看客户点密钥（这个记得保存因为他只明文显示一次）</p>
 <h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>这里只展示一下最简单的流程信息，代码会非常简陋</p>
 <p>版本情况：</p>
@@ -232,7 +232,7 @@ if (true) {
 
 <p>克隆下来上面的代码之后把配置信息填一下然后把代码跑起来</p>
 <h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>这点里面的代码不涉及任何前端，代码跑起来之后直接在游览器访问：<code>http://localhost:8080</code>。然后后端就会拼接并重定向到请求授权链接，会出现下图</p>
-<p>![image-20241103215924263](<a target="_blank" rel="noopener" href="https://vip.123pan.cn/1816073777/blog-img/%E6%96%87%E7%AB%A0/Java/md.image/GitHub">https://vip.123pan.cn/1816073777/blog-img/文章/Java/md.image/GitHub</a> OAuth&#x2F;image-20241103215924263.png)</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://vip.123pan.cn/1816073777/blog-img/%E6%96%87%E7%AB%A0/Java/md.image/GitHub_OAuth/image-20241103215924263.png" alt="image-20241103215924263"></p>
 <p>点击绿色的按钮表示同意授权，GitHub就会重定向到之前填写的授权链接并携带上了授权码。像是以下这样：</p>
 <figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://127.0.0.1:8080/redirect?code=1e648753e8051321ca77</span><br></pre></td></tr></table></figure>
 
