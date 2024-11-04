@@ -59,7 +59,7 @@
   isHome: false,
   isHighlightShrink: false,
   isToc: false,
-  postUpdate: '2024-11-04 11:32:50',
+  postUpdate: '2024-11-04 13:22:47',
   postMainColor: '',
 }</script><noscript><style type="text/css">
   #nav {
@@ -209,7 +209,7 @@ if (true) {
 <li>所有资源均来自互联网通过我搜集和整理 仅提供一个展示、介绍、学习的平台，不对其内容的准确性、可靠性、正当性、安全性、合法性等负责，亦不承担任何法律责任</li>
 <li>软件和相关资料，如果侵犯了第三方的知识产权或其他权利，责任由使用者或转载者本人承担，本站以及本人对此不承担任何责任</li>
 <li>以任何方式下载或直接、间接使用资源均视为您自愿接受并完全同意本声明</li>
-<li>如有内容侵犯您的版权或其他利益的，请联系站长 QQ: <a href="mailto:&#50;&#x35;&#x31;&#53;&#x35;&#x35;&#x30;&#x35;&#x37;&#x34;&#x40;&#113;&#x71;&#x2e;&#99;&#111;&#x6d;">&#50;&#x35;&#x31;&#53;&#x35;&#x35;&#x30;&#x35;&#x37;&#x34;&#x40;&#113;&#x71;&#x2e;&#99;&#111;&#x6d;</a> 站长会在收到消息后的一周内移除</li>
+<li>如有内容侵犯您的版权或其他利益的，请联系站长 QQ: <a href="mailto:&#50;&#53;&#x31;&#x35;&#53;&#x35;&#x30;&#53;&#55;&#52;&#x40;&#x71;&#113;&#x2e;&#99;&#x6f;&#109;">&#50;&#53;&#x31;&#x35;&#53;&#x35;&#x30;&#53;&#55;&#52;&#x40;&#x71;&#113;&#x2e;&#99;&#x6f;&#109;</a> 站长会在收到消息后的一周内移除</li>
 <li><strong>请支持正版</strong></li>
 </ol>
 <blockquote>
@@ -325,7 +325,43 @@ queueMicrotask(() => {
   setTimeout(
     console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
   );
-});</script><script async src="/anzhiyu/random.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><input type="hidden" name="page-type" id="page-type" value="anzhiyu"></div><script async data-pjax src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.1/bubble/bubble.js"></script><script>var visitorMail = "";
+});</script><script async src="/anzhiyu/random.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>(() => {
+  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaid.length === 0) return
+  const runMermaid = () => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    Array.from($mermaid).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const loadMermaid = () => {
+    window.loadMermaid ? runMermaid() : getScript('https://cdn.cbd.int/mermaid@10.2.4/dist/mermaid.min.js').then(runMermaid)
+  }
+
+  anzhiyu.addGlobalFn('themeChange', runMermaid, 'mermaid')
+
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><input type="hidden" name="page-type" id="page-type" value="anzhiyu"></div><script async data-pjax src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.1/bubble/bubble.js"></script><script>var visitorMail = "";
 </script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/qrcodejs/1.0.0/qrcode.min.js"></script><script src="/js/anzhiyu/right_click_menu.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><script async src="/js/iconfont.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
 var pjax = new Pjax({
   elements: 'a:not([target="_blank"])',
