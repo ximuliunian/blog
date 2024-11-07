@@ -59,7 +59,7 @@
   isHome: false,
   isHighlightShrink: false,
   isToc: false,
-  postUpdate: '2024-11-04 13:22:47',
+  postUpdate: '2024-11-07 14:06:37',
   postMainColor: '',
 }</script><noscript><style type="text/css">
   #nav {
@@ -225,7 +225,7 @@ if (true) {
 <li>将压缩包里的 app.asar 文件替换掉原本的 app.asar 文件</li>
 <li>重启Typora</li>
 <li>输入邮箱授权码<ul>
-<li>邮箱：<a href="mailto:&#x78;&#105;&#109;&#x75;&#x6c;&#x69;&#x75;&#x6e;&#x69;&#97;&#x6e;&#64;&#x78;&#x6d;&#x6c;&#x6e;&#46;&#99;&#x6f;&#109;">&#x78;&#105;&#109;&#x75;&#x6c;&#x69;&#x75;&#x6e;&#x69;&#97;&#x6e;&#64;&#x78;&#x6d;&#x6c;&#x6e;&#46;&#99;&#x6f;&#109;</a>(随便写,但格式要正确)</li>
+<li>邮箱：<a href="mailto:&#120;&#105;&#x6d;&#x75;&#108;&#x69;&#117;&#x6e;&#x69;&#x61;&#110;&#64;&#120;&#109;&#108;&#x6e;&#46;&#99;&#x6f;&#109;">&#120;&#105;&#x6d;&#x75;&#108;&#x69;&#117;&#x6e;&#x69;&#x61;&#110;&#64;&#120;&#109;&#108;&#x6e;&#46;&#99;&#x6f;&#109;</a>(随便写,但格式要正确)</li>
 <li>授权码：<strong>E8Q9Y5-KXMTL5-7578SL-4S5XKS</strong></li>
 </ul>
 </li>
@@ -317,13 +317,16 @@ queueMicrotask(() => {
     console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
   );
 });</script><script async src="/anzhiyu/random.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>(() => {
-  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+  const $mermaid = document.querySelectorAll('#article-container .mermaid')
   if ($mermaid.length === 0) return
   const runMermaid = () => {
     window.loadMermaid = true
     const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
 
     Array.from($mermaid).forEach((item, index) => {
+      item.style.background = '#F6F7FB'
+      item.parentElement.style.background = '#F6F7FB'
+
       const mermaidSrc = item.firstElementChild
       const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
       const mermaidID = 'mermaid-' + index
