@@ -1,0 +1,1396 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="cloudflared内网穿透,cloudflared,cloudflared Zero,cloudflared tunnel">
+    
+    <meta name="author" content="曦暮流年">
+    
+    <!-- Completely eliminate flash of wrong theme -->
+    <script>
+        (function() {
+            const THEME_KEY = "REDEFINE-THEME-STATUS";
+            const DARK = "dark", LIGHT = "light";
+            
+            // Get preferred theme
+            function getTheme() {
+                try {
+                    const saved = localStorage.getItem(THEME_KEY);
+                    if (saved) {
+                        const { isDark } = JSON.parse(saved);
+                        return isDark ? DARK : LIGHT;
+                    }
+                } catch (e) {}
+                
+                return matchMedia("(prefers-color-scheme: dark)").matches ? DARK : LIGHT;
+            }
+            
+            // Apply theme to document
+            function applyTheme(theme) {
+                const isDark = theme === DARK;
+                const root = document.documentElement;
+                
+                // Set classes for compatibility
+                root.classList.add(theme);
+                root.classList.remove(isDark ? LIGHT : DARK);
+                root.style.colorScheme = theme;
+            }
+            
+            // Initial application
+            const theme = getTheme();
+            applyTheme(theme);
+            
+            // Listen for system preference changes
+            matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches }) => {
+                // Only update if using system preference (no localStorage entry)
+                if (!localStorage.getItem(THEME_KEY)) {
+                    applyTheme(matches ? DARK : LIGHT);
+                }
+            });
+            
+            // Set body classes ASAP (before DOMContentLoaded)
+            (function() {
+                const addBodyClass = () => {
+                    const b = document.body;
+                    if (!b) return false;
+                    b.classList.add(theme + "-mode");
+                    return true;
+                };
+
+                // Try immediately
+                if (addBodyClass()) return;
+
+                // Observe until body exists
+                const mo = new MutationObserver(() => {
+                    if (addBodyClass()) mo.disconnect();
+                });
+                mo.observe(document.documentElement, { childList: true, subtree: true });
+            })();
+        })();
+    </script>
+    
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://www.ximuliunian.top/2023/09/27/随记/cloudflare内网穿透/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+    
+        
+        <meta name="description" content="XMLN - 曦暮流年的个人博客">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cloudflared内网穿透">
+<meta property="og:url" content="https://www.ximuliunian.top/2023/09/27/%E9%9A%8F%E8%AE%B0/cloudflare%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/index.html">
+<meta property="og:site_name" content="曦暮流年">
+<meta property="og:description" content="XMLN - 曦暮流年的个人博客">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.ximuliunian.top/images/minecraft.png">
+<meta property="article:published_time" content="2023-09-27T11:45:41.000Z">
+<meta property="article:modified_time" content="2024-04-18T16:00:00.000Z">
+<meta property="article:author" content="曦暮流年">
+<meta property="article:tag" content="工具">
+<meta property="article:tag" content="命令">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="CentOS 7">
+<meta property="article:tag" content="C语言">
+<meta property="article:tag" content="脚本">
+<meta property="article:tag" content="内网穿透">
+<meta property="article:tag" content="cloudflare">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.ximuliunian.top/images/minecraft.png">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/favicon.ico" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/favicon.ico">
+    <!--- Page Info-->
+    
+    <title>
+        
+            cloudflared内网穿透 | XMLN
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+        
+            
+    
+            
+    
+            
+                
+                    <link rel="stylesheet" href="/css/universe.css">
+                
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/css/build/tailwind.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+    
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"www.ximuliunian.top","root":"/","language":"zh-CN","path":"search.json"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":true,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":true,"list":["Lv1","Lv2","Lv3","Lv4","Lv5"]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":4,"number":true,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"side_tools":{"gear_rotation":true,"auto_expand":false},"open_graph":{"enable":true,"image":"/images/minecraft.png","description":"XMLN - 曦暮流年的个人博客"},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/background/light.png","dark":"/images/background/dark.png"},"title":"曦暮流年","subtitle":{"text":["Loading..."],"hitokoto":{"enable":true,"show_author":true,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#E6E6FA"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":{"github":"https://github.com/ximuliunian","instagram":null,"zhihu":null,"twitter":null,"email":"ximuliunian@outlook.com"},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":true,"version":"11.4.1"}},"version":"2.8.5","navbar":{"auto_hide":false,"color":{"left":"#E0F7FA","right":"#F5F5F5","transparency":25},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"info","announcement":"欢迎来到我的小天地！这里有生活碎片、干货分享，愿能陪你度过每一段有意义的时光～","show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"}}},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":5},"tags":{"enable":true,"limit":5}},"footerStart":"2022/1/21 08:00:00"};
+    window.lang_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                XMLN
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    首页
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    归档
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/tags"
+                                        >
+                                    <i class="fa-regular fa-tags fa-fw"></i>
+                                    标签
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/categories"
+                                        >
+                                    <i class="fa-regular fa-folder fa-fw"></i>
+                                    分类
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                首页
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                归档
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/tags"
+                        >
+                            <span>
+                                标签
+                            </span>
+                            
+                                <i class="fa-regular fa-tags fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/categories"
+                        >
+                            <span>
+                                分类
+                            </span>
+                            
+                                <i class="fa-regular fa-folder fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+
+            
+            
+                
+                    
+                    
+                    
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">54</div>
+        <div class="label text-third-text-color text-sm">标签</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">10</div>
+        <div class="label text-third-text-color text-sm">分类</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">33</div>
+        <div class="label text-third-text-color text-sm">文章</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			
+			
+			<img src="https://vip.123pan.cn/1816073777/blog-img/壁纸/2023-4-13/3.png" alt="cloudflared内网穿透" class="w-full h-60 sm:h-72 md:h-80 object-cover sm:rounded-t-large dark:brightness-75" />
+			
+			<div class="w-full flex items-center absolute bottom-0 justify-start">
+				<h1 class="article-title-cover text-center mx-6 my-6 text-second-text-color bg-background-color-transparent px-4 py-3 text-3xl sm:text-4xl md:text-5xl font-semibold backdrop-blur-lg rounded-xl border border-border-color ">cloudflared内网穿透</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/xmln-384.png">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">曦暮流年</span>
+					
+					<span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv4</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2023-09-27 19:45:41</span>
+        <span class="mobile">2023-09-27 19:45:41</span>
+        <span class="hover-info">创建</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2024-04-19</span>
+            <span class="mobile">2024-04-19</span>
+            <span class="hover-info">更新</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/%E9%9A%8F%E8%AE%B0/">随记</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E5%B7%A5%E5%85%B7/">工具</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E5%91%BD%E4%BB%A4/">命令</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Linux/">Linux</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/CentOS-7/">CentOS 7</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/C%E8%AF%AD%E8%A8%80/">C语言</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E8%84%9A%E6%9C%AC/">脚本</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/">内网穿透</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/cloudflare/">cloudflare</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>5.7k 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>23 分钟</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<h2 id="Cloudflared-Zero-Trust"><a href="#Cloudflared-Zero-Trust" class="headerlink" title="Cloudflared Zero Trust"></a>Cloudflared Zero Trust</h2><p>Zero Trust是Cloudflare公司推出的一项企业级虚拟网关服务，官方对其介绍如下：</p>
+<blockquote>
+<p>Cloudflare Zero Trust是一个安全框架，旨在通过验证和保护所有的网络访问（无论用户或地点）来保护组织免受网络威胁。该框架基于 “不信任任何人 “的原则，这意味着所有访问请求在被批准之前必须经过验证和授权。</p>
+<p>Zero Trust “旨在提供一种全面的安全方法，涵盖一个组织的网络和基础设施的所有方面。这包括用户认证、设备安全、网络分段和应用安全。</p>
+<p>Zero Trust的主要好处之一是它能够提供细化的访问控制，使企业能够根据用户角色和权限限制对敏感资源的访问。这可以通过最小化攻击面和限制任何潜在漏洞的影响来帮助防止数据泄露和其他安全事件。</p>
+<p>Cloudflare Zero Trust是一项基于云的服务，可以很容易地与组织的现有安全基础设施集成。它的设计具有可扩展性和灵活性，允许企业定制框架，以满足其特定需求和要求。</p>
+<p>（通过<a class="link"   target="_blank" rel="noopener" href="https://www.deepl.com/" >DeepL<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>翻译）</p>
+</blockquote>
+<p>本文仅使用其中的<code>tunnel</code>功能，对其余功能不做赘述</p>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><ol>
+<li>一个域名（通过阿里云等购买然后解析到Cloudflare上）</li>
+<li>一个Cloudflare账号</li>
+<li>一台设备（本文使用的系统是<code>centos 7</code>）</li>
+<li>一张双币信用卡（到后面需要验证，但是可能也不需要，因为我第一次使用<code>tunnel</code>的时候要信用卡验证，但是等我第二次用的时候就不需要了）</li>
+</ol>
+<blockquote>
+<p>一共有两种操作方式，一个网页版操作，一个是本地指令操作</p>
+<p>下面所作的一切操作的前提就是上面的已经准备好了</p>
+<p>在此说一下，除了<code>http/https</code>协议外，像是其他的<code>tcp/ssh…</code>这些协议是需要端对端的链接映射端口的</p>
+</blockquote>
+<h2 id="网页版"><a href="#网页版" class="headerlink" title="网页版"></a>网页版</h2><h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><p>登录之后点击左边的<code>Zero Trust</code></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://vip.123pan.cn/1816073777/blog-img/%E6%96%87%E7%AB%A0/%E7%AC%94%E8%AE%B0/cloudflare%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/1.png"
+                     
+                ></p>
+<p>来到这个页面，点击Access-&gt;Tunnel</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://vip.123pan.cn/1816073777/blog-img/%E6%96%87%E7%AB%A0/%E7%AC%94%E8%AE%B0/cloudflare%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/2.png"
+                     
+                ></p>
+<p>这里的<code>xnj</code>是我之前做的，所以忽略，之后点击页面的新建，就是哪个蓝色的按钮</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://vip.123pan.cn/1816073777/blog-img/%E6%96%87%E7%AB%A0/%E7%AC%94%E8%AE%B0/cloudflare%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/3.png"
+                     
+                ></p>
+<p>这里是输入这个隧道的名称，随便输入就行，之后就到了这个页面，根据自己的系统选就行，我是<code>Linux</code>所以选那个企鹅，因为下面两个框，要是第一次使用的话就选左边的框，里面因为是要从<code>GitHub</code>上下载东西，但是GitHub在国内经常抽风，所以需要一个节点来加速</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://vip.123pan.cn/1816073777/blog-img/%E6%96%87%E7%AB%A0/%E7%AC%94%E8%AE%B0/cloudflare%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/4.png"
+                     
+                ><br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://vip.123pan.cn/1816073777/blog-img/%E6%96%87%E7%AB%A0/%E7%AC%94%E8%AE%B0/cloudflare%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/5.png"
+                     
+                ></p>
+<div class="code-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#原链接</span></span><br><span class="line">curl -L --output cloudflared.rpm https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-x86_64.rpm &amp;&amp; </span><br><span class="line"></span><br><span class="line"><span class="built_in">sudo</span> yum localinstall -y cloudflared.rpm &amp;&amp; </span><br><span class="line"></span><br><span class="line"><span class="built_in">sudo</span> cloudflared service install eyJhIjoiNzQ0MTMwNW0IjoiNmM5ZDU0YzAtZDAyYS00MDJlLThlYjktZTdmMzg1YzRmkRnd0xUbGhOR1F0TjJKbU5tSTFPVGhsWTJFNCJ9</span><br><span class="line"></span><br><span class="line"><span class="comment">#新链接</span></span><br><span class="line">curl -L --output cloudflared.rpm https://ghjs.ximuliunian.top/https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-x86_64.rpm &amp;&amp; </span><br><span class="line"></span><br><span class="line"><span class="built_in">sudo</span> yum localinstall -y cloudflared.rpm &amp;&amp; </span><br><span class="line"></span><br><span class="line"><span class="built_in">sudo</span> cloudflared service install eyJhIjoiNzQ0MTMwNW0IjoiNmM5ZDU0YzAtZDAyYS00MDJlLThlYjktZTdmMzg1YzRmkRnd0xUbGhOR1F0TjJKbU5tSTFPVGhsWTJFNCJ9</span><br></pre></td></tr></table></figure></div>
+
+<p>就是<code>https://ghjs.ximuliunian.top</code>这个链接，然后把链接复制到终端加速下载</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://vip.123pan.cn/1816073777/blog-img/%E6%96%87%E7%AB%A0/%E7%AC%94%E8%AE%B0/cloudflare%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/6.png"
+                     
+                ></p>
+<p>看到这个就是代表安装好了，然后回到网页看看是否成功，如果在链接的下面看到有显示数据或者退出去隧道状态显示绿色就代表🆗了</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://vip.123pan.cn/1816073777/blog-img/%E6%96%87%E7%AB%A0/%E7%AC%94%E8%AE%B0/cloudflare%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/7.png"
+                     
+                ></p>
+<p>然后滑倒下面，点击右下角的<code>next</code></p>
+<h3 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://vip.123pan.cn/1816073777/blog-img/%E6%96%87%E7%AB%A0/%E7%AC%94%E8%AE%B0/cloudflare%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/8.png"
+                     
+                ></p>
+<p>这个是让你输入对应内容进行穿透，按照图片提示输入即可</p>
+<blockquote>
+<p>在这里再次说一下，除了<code>http/https</code>协议外，像是其他的<code>tcp/ssh…</code>这些协议是需要端对端的链接映射端口的，这个稍后说</p>
+</blockquote>
+<p>在里面填的映射端口，要是<code>http/https</code>协议的话是可以直接游览器访问的，这些就可以让家里不用的设备去用来做网站什么的，除了速度慢一点，其他一切都好</p>
+<p>可以在一条隧道里面添加多条数据使用，但是毕竟是免费版的，所以会有条数限制具体就不再演示</p>
+<h2 id="指令版"><a href="#指令版" class="headerlink" title="指令版"></a>指令版</h2><h3 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h3><div class="code-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl -L --output cloudflared.rpm https://ghjs.ximuliunian.top/https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-x86_64.rpm &amp;&amp; </span><br><span class="line"></span><br><span class="line"><span class="built_in">sudo</span> yum localinstall -y cloudflared.rpm</span><br></pre></td></tr></table></figure></div>
+
+<p>把这个复制到控制台上，然后运行开始下载，链接跟上面的一样，只不过这是优化后的链接和没有第三行绑定内容</p>
+<p>软件默认安装到：<code>/usr/local/bin</code>目录下</p>
+<h3 id="身份认证"><a href="#身份认证" class="headerlink" title="身份认证"></a>身份认证</h3><p>使用Argo Tunnel Client 需要使用者登录 Cloudflare 账号以进行授权</p>
+<div class="code-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cloudflared tunnel login</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://vip.123pan.cn/1816073777/blog-img/%E6%96%87%E7%AB%A0/%E7%AC%94%E8%AE%B0/cloudflare%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/13.png"
+                     
+                ></p>
+<p>出现上图内容之后复制其中的链接到本地游览器进行登录认证操作，成功之后就会出现下图</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://vip.123pan.cn/1816073777/blog-img/%E6%96%87%E7%AB%A0/%E7%AC%94%E8%AE%B0/cloudflare%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/14.png"
+                     
+                ></p>
+<p>本地也会进行相应的操作如下图，大致意思就是登录成功，已经在 <code>/root/.cloudflared/</code> 目录下生成了<code>cert.pem</code>一个文件，这个文件差不多就是类似于认证证书什么的，反正很重要</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://vip.123pan.cn/1816073777/blog-img/%E6%96%87%E7%AB%A0/%E7%AC%94%E8%AE%B0/cloudflare%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/15.png"
+                     
+                ></p>
+<h3 id="新建-Tunnel"><a href="#新建-Tunnel" class="headerlink" title="新建 Tunnel"></a>新建 Tunnel</h3><div class="code-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#样品</span></span><br><span class="line">cloudflared tunnel create [名字]</span><br><span class="line"><span class="comment">#例子 如我想创建一个名为 test 的Tunnel</span></span><br><span class="line">cloudflared tunnel create <span class="built_in">test</span></span><br></pre></td></tr></table></figure></div>
+
+<p>运行之后就会就会在<code>/root/.cloudflared/</code>目录下生成一个隧道凭据（是json文件），同时还有隧道ID（就是json文件的名字），这个东西很重要，千万不能丢</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://vip.123pan.cn/1816073777/blog-img/%E6%96%87%E7%AB%A0/%E7%AC%94%E8%AE%B0/cloudflare%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/16.png"
+                     
+                ></p>
+<h3 id="配置DNS记录"><a href="#配置DNS记录" class="headerlink" title="配置DNS记录"></a>配置DNS记录</h3><p>有两种方法进行配置，第一种方法就是直接去网站里面进行配置，第二种就是指令配置</p>
+<h4 id="网站配置"><a href="#网站配置" class="headerlink" title="网站配置"></a>网站配置</h4><p>进入到你的网站解析页面，新建一条记录就如下面这让</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://vip.123pan.cn/1816073777/blog-img/%E6%96%87%E7%AB%A0/%E7%AC%94%E8%AE%B0/cloudflare%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/17.png"
+                     
+                ></p>
+<p>类型：<code>CNAME</code></p>
+<p>名称：随便填</p>
+<p>目标：<code>创建隧道的ID.cfargotunnel.com</code></p>
+<p>其他默认就好点击保存就好了</p>
+<h4 id="指令配置"><a href="#指令配置" class="headerlink" title="指令配置"></a>指令配置</h4><p>还是打开终端，然后按照下面的格式输入指令</p>
+<div class="code-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cloudflared tunnel route dns [隧道的ID] [想要绑定的域名或二级域名]</span><br></pre></td></tr></table></figure></div>
+
+<p>出现下图情况就是绑定成功了</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://vip.123pan.cn/1816073777/blog-img/%E6%96%87%E7%AB%A0/%E7%AC%94%E8%AE%B0/cloudflare%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/18.png"
+                     
+                ></p>
+<h3 id="配置文件编写"><a href="#配置文件编写" class="headerlink" title="配置文件编写"></a>配置文件编写</h3><blockquote>
+<p>参考：<a class="link"   target="_blank" rel="noopener" href="https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/configure-tunnels/local-management/" >本地管理的隧道 ·Cloudflare 零信任文档<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+</blockquote>
+<p>在<code>/root/.cloudflared/</code>目录下创建一个名为<code>config.yml</code>的文件，使用<code>vi</code>命令进行创建和编写</p>
+<blockquote>
+<p>vim 是一个兼容 vi 的文本编辑器，通常用来编辑纯文本。 vi 文件名 命令可以编辑一个文件，若文件名不存在则会新建</p>
+</blockquote>
+<p>在目录下使用<code>vi config.yml</code>，进入页面后点击<code>I</code>键进入书写模式并写入以下内容，<code>#</code>后面的包括<code>#</code>可以不写</p>
+<div class="code-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">tunnel:</span> <span class="string">隧道ID</span></span><br><span class="line"><span class="attr">credentials-file:</span> <span class="string">/root/.cloudflared/隧道ID.json</span></span><br><span class="line"></span><br><span class="line"><span class="attr">ingress:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">hostname:</span> [<span class="string">CNAME</span> <span class="string">记录名称</span>]<span class="string">.[接入</span> <span class="string">CLoudflare</span> <span class="string">的域名]</span>  <span class="comment">#域名，就是相面配置的DNS域名</span></span><br><span class="line">    <span class="attr">service:</span> <span class="string">hello_world</span>	<span class="comment">#这里面就是本地映射的端口，这里写这个是为了判断是否配置成功</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">service:</span> <span class="string">http_status:404</span>	<span class="comment">#不管上面怎么设置，下面永远是这一条，否则就出错</span></span><br></pre></td></tr></table></figure></div>
+
+<p>这个可以配置多个，只需要配置相对应的<code>DNS</code>在上面多添加一条记录即可，格式如下</p>
+<div class="code-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">ingress:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">hostname:</span> [<span class="string">CNAME</span> <span class="string">记录名称</span>]<span class="string">.[接入</span> <span class="string">CLoudflare</span> <span class="string">的域名]</span>  </span><br><span class="line">    <span class="attr">service:</span> <span class="string">http://localhost:80</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">hostname:</span> [<span class="string">CNAME</span> <span class="string">记录名称</span>]<span class="string">.[接入</span> <span class="string">CLoudflare</span> <span class="string">的域名]</span></span><br><span class="line">    <span class="attr">service:</span> <span class="string">tcp://0.0.0.0:25565</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">hostname:</span> [<span class="string">CNAME</span> <span class="string">记录名称</span>]<span class="string">.[接入</span> <span class="string">CLoudflare</span> <span class="string">的域名]</span></span><br><span class="line">    <span class="attr">service:</span> <span class="string">ssh://0.0.0.0:22</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">service:</span> <span class="string">http_status:404</span>	</span><br></pre></td></tr></table></figure></div>
+
+<p>写完之后点击键盘左上角的<code>ESC</code>键，然后输入<code>:wq</code>保存并退出，这样就会有<code>config.yml</code>文件了</p>
+<h3 id="执行-Tunnel"><a href="#执行-Tunnel" class="headerlink" title="执行 Tunnel"></a>执行 Tunnel</h3><div class="code-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cloudflared tunnel --config [配置文件路径] run</span><br><span class="line"><span class="comment">#如果在 .cloudflared目录下，那么执行下面语句</span></span><br><span class="line">cloudflared tunnel --config config.yml run</span><br></pre></td></tr></table></figure></div>
+
+<p>如果不指定配置文件路径，cloudflared 会默认读取 <code>~/.cloudflared/config.yml</code></p>
+<p>别管报错的有多离谱，只要上面配置对了，那么基本上就没问题，报错那就多运行几次，直到运行到隧道为状态绿色为止</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://vip.123pan.cn/1816073777/blog-img/%E6%96%87%E7%AB%A0/%E7%AC%94%E8%AE%B0/cloudflare%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/19.png"
+                     
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://vip.123pan.cn/1816073777/blog-img/%E6%96%87%E7%AB%A0/%E7%AC%94%E8%AE%B0/cloudflare%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/20.png"
+                     
+                ></p>
+<p>这就代表是成功了，访问一下你刚才绑定的域名，如果你用的是<code>hello_world</code>那么你访问的结果会是下图</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://vip.123pan.cn/1816073777/blog-img/%E6%96%87%E7%AB%A0/%E7%AC%94%E8%AE%B0/cloudflare%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/21.png"
+                     
+                ></p>
+<p>但是还没完，还要把这个搞成Linux服务</p>
+<h3 id="服务"><a href="#服务" class="headerlink" title="服务"></a>服务</h3><h4 id="安装服务"><a href="#安装服务" class="headerlink" title="安装服务"></a>安装服务</h4><div class="code-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cloudflared service install</span><br></pre></td></tr></table></figure></div>
+
+<p>他会在<code>/etc/systemd/system</code>目录下创建3个文件（cloudflared.service、cloudflared-update.service、cloudflared-update.timer），会在 <code>/etc/cloudflared</code> 目录下创建<code>config.yml</code>文件</p>
+<p>安装好之后会有下图情况</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://vip.123pan.cn/1816073777/blog-img/%E6%96%87%E7%AB%A0/%E7%AC%94%E8%AE%B0/cloudflare%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/22.png"
+                     
+                ></p>
+<p>大概意思就是，<code>/root/.cloudflared/config.yml</code>和<code>/etc/cloudflared/config.yml</code>存在冲突，要么删除 <code>/etc/cloudflared</code>目录下的<code>config.yml</code>文件，要么运行一下 <code>cloudflared --config /etc/cloudflared/config.yml service install</code>这个指令（应该是用于区分作用）</p>
+<blockquote>
+<p>此时他的服务默认路径不是咱在<code>root</code>下创建的文件，而是运行的<code>etc</code>下的文件</p>
+</blockquote>
+<p>上面这个这个咱不用管，咱只需要把路径调试对即可，因为安装服务的时候在<code>/etc/systemd/system</code>目录下创建了三个文件，其中有一个<code>cloudflared.service</code>文件，用编译器打开它，在第8行左右的位置更改一下内容</p>
+<div class="code-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#格式</span></span><br><span class="line">ExecStart=/usr/bin/cloudflared --no-autoupdate --config config文件路径 tunnel run</span><br><span class="line"><span class="comment">#原内容</span></span><br><span class="line">ExecStart=/usr/bin/cloudflared --no-autoupdate --config /etc/cloudflared/config.yml tunnel run</span><br><span class="line"><span class="comment">#新内容</span></span><br><span class="line">ExecStart=/usr/bin/cloudflared --no-autoupdate --config /root/.cloudflared/config.yml tunnel run</span><br></pre></td></tr></table></figure></div>
+
+<p>然后就OK了，如果此时服务以运行，那么就进行重启服务即可，如遇到报错内容，根据内容进行输入即可</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://vip.123pan.cn/1816073777/blog-img/%E6%96%87%E7%AB%A0/%E7%AC%94%E8%AE%B0/cloudflare%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/23.png"
+                     
+                ></p>
+<h4 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h4><div class="code-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#启动服务</span></span><br><span class="line">systemctl start cloudflared</span><br><span class="line"></span><br><span class="line"><span class="comment">#查看服务状态（可选）</span></span><br><span class="line">systemctl status cloudflared</span><br><span class="line"></span><br><span class="line"><span class="comment">#重启服务（更新后数据后重启一下）</span></span><br><span class="line">systemctl restart cloudflared</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="查看是否OK"><a href="#查看是否OK" class="headerlink" title="查看是否OK"></a>查看是否OK</h3><p>通过端对端的映射可以看到，ssh已经是映射成功了，其他协议也可以这样搞</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://vip.123pan.cn/1816073777/blog-img/%E6%96%87%E7%AB%A0/%E7%AC%94%E8%AE%B0/cloudflare%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/24.png"
+                     
+                ></p>
+<h2 id="Windows使用"><a href="#Windows使用" class="headerlink" title="Windows使用"></a>Windows使用</h2><p>在windows系统（以下简称win）中也需要内穿，比如测试程序、穿透某项服务等。在win中操作方式跟linux大差不差，首先需要下载相对应的软件在GitHub中有两种软件一种是后缀为 <code>msi</code> 的安装程序，还有一个是 <code>exe</code> 的程序，我使用的是exe程序。至于区别以下为GPT的答案</p>
+<blockquote>
+<p><code>cloudflared-windows-amd64.msi</code> 和 <code>cloudflared-windows-amd64.exe</code> 是两种不同的文件格式，通常用于在 Windows 操作系统上安装应用程序或工具。这两个文件的区别在于它们的安装方式和功能：</p>
+<ol>
+<li><strong>cloudflared-windows-amd64.msi</strong>:</li>
+</ol>
+<ul>
+<li><code>.msi</code> 文件是 Windows Installer 包的文件扩展名，通常用于安装程序。当您双击运行一个 <code>.msi</code> 文件时，Windows Installer 将会启动安装向导，引导您完成安装过程。这种文件格式通常提供更多的安装选项和设置，例如选择安装路径、添加桌面快捷方式等。</li>
+<li><code>cloudflared-windows-amd64.msi</code> 文件可能是 Cloudflared 工具的安装程序，通过运行这个文件，您可以按照安装向导的指示在 Windows 系统上安装 Cloudflared 工具。</li>
+</ul>
+<ol start="2">
+<li><strong>cloudflared-windows-amd64.exe</strong>:</li>
+</ol>
+<ul>
+<li><code>.exe</code> 文件是 Windows 可执行文件的常见扩展名，它们通常是独立的可执行程序。当您运行一个 <code>.exe</code> 文件时，它会直接执行其中的程序代码，而无需通过安装向导。</li>
+<li><code>cloudflared-windows-amd64.exe</code> 文件可能是 Cloudflared 工具的独立可执行文件。通过运行这个文件，您可以直接启动 Cloudflared 工具，而无需进行安装过程。</li>
+</ul>
+<p>因此，如果您想要安装 Cloudflared 工具并在系统中进行设置，您可以选择运行 <code>.msi</code> 文件以启动安装向导。如果您只是想要快速运行 Cloudflared 工具而不需安装，您可以选择运行 <code>.exe</code> 文件。</p>
+</blockquote>
+<h3 id="操作-1"><a href="#操作-1" class="headerlink" title="操作"></a>操作</h3><p>首先穿透的时候不是使用网页版的，而是使用本地配置文件的方式进行（跟以上<a href="#%E6%8C%87%E4%BB%A4%E7%89%88">指令版</a>很像），首先建议<a href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9">配一下环境变量</a>（如果你知道如何操作的话不配也行），然后打开命令窗口输入以下命令进行授权操作</p>
+<div class="code-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cloudflared login</span><br></pre></td></tr></table></figure></div>
+
+<p>完成授权之后会在 <code>C:\Users\%USERNAME%\.cloudflared</code> 目录中生成登录凭证，之后才可以进行后续的操作</p>
+<p>创建隧道（<code>&lt;NAME&gt;</code> 处写上隧道名）</p>
+<div class="code-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cloudflared tunnel create &lt;NAME&gt;</span><br></pre></td></tr></table></figure></div>
+
+<p>创建隧道完成还是会在 <code>C:\Users\%USERNAME%\.cloudflared</code> 目录下生成隧道的凭据是一个名是UUID的json文件</p>
+<p>然后配置穿透需要的域名</p>
+<div class="code-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cloudflared tunnel route dns &lt;隧道ID&gt; &lt;域名&gt;</span><br></pre></td></tr></table></figure></div>
+
+<p>隧道ID就是生成的UUID，域名是二级域名，建议使用泛解析，可以不需要重复的进行域名绑定操作如：<code>*.xxx.com</code></p>
+<p>然后编写配置文件，在你存放exe程序的文件夹中创建一个 <code>config.yaml</code> 文件，然后开始编辑内容，如下：</p>
+<div class="code-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 隧道的标识 - UUID</span></span><br><span class="line"><span class="attr">tunnel:</span> <span class="string">隧道的UUID</span></span><br><span class="line"><span class="comment"># 隧道的凭据</span></span><br><span class="line"><span class="attr">credentials-file:</span> <span class="string">C:\Users\用户名\.cloudflared\隧道凭据.json</span></span><br><span class="line"><span class="comment"># 穿透的内容 - 可以有多个</span></span><br><span class="line"><span class="attr">ingress:</span></span><br><span class="line">  <span class="comment"># 服务1</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">hostname:</span> <span class="string">fw1.xxx.top</span> <span class="comment"># 域名</span></span><br><span class="line">    <span class="attr">service:</span> <span class="string">http://localhost:8080</span> <span class="comment"># 本机服务</span></span><br><span class="line">  <span class="comment"># 服务2</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">hostname:</span> <span class="string">fw2.xxx.top</span></span><br><span class="line">    <span class="attr">service:</span> <span class="string">http://localhost:9527</span></span><br><span class="line">  <span class="comment"># 默认错误404 - 一定要有这个 - 最后一个入口规则必须是与所有流量匹配的 catch-all 规则</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">service:</span> <span class="string">http_status:404</span></span><br></pre></td></tr></table></figure></div>
+
+<p>对上面的配置按照提示进行修改，在上面的服务中域名有fw1和fw2两个甚至可能更多，配置一个域名的泛解析之后会非常方便的进行穿透不需要一直进行创建DNS记录，但是也有一个弊端就是如果二级域名重复会导致冲突</p>
+<blockquote>
+<p>在编写这种 <code>yaml</code> 格式的文件需要注意缩进</p>
+</blockquote>
+<h3 id="启用穿透"><a href="#启用穿透" class="headerlink" title="启用穿透"></a>启用穿透</h3><p>创建一个cmd文件如：<code>开启穿透.cmd</code>，对文件继续编辑，输入以下内容</p>
+<div class="code-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cloudflared --config=D:\cloudflared\config.yaml tunnel run</span><br></pre></td></tr></table></figure></div>
+
+<p>其中 <code>--config=</code> 后面的内容写上配置文件的全路径然后保存，最后双击文件即可开始穿透</p>
+<h3 id="速度"><a href="#速度" class="headerlink" title="速度"></a>速度</h3><p>在DNS中有泛解析的一条数据，这条数据默认是开启DNS代理的，这个建议不要关，因为关闭的话链接超时的概率会非常大，这是开启的情况下进行 ping 10次的速度</p>
+<div class="code-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">正在 Ping xxx.ximuliunian.top [172.67.178.240] 具有 32 字节的数据:</span><br><span class="line">来自 172.67.178.240 的回复: 字节=32 时间=193ms TTL=1</span><br><span class="line">来自 172.67.178.240 的回复: 字节=32 时间=209ms TTL=1</span><br><span class="line">来自 172.67.178.240 的回复: 字节=32 时间=191ms TTL=1</span><br><span class="line">来自 172.67.178.240 的回复: 字节=32 时间=189ms TTL=1</span><br><span class="line">来自 172.67.178.240 的回复: 字节=32 时间=192ms TTL=1</span><br><span class="line">来自 172.67.178.240 的回复: 字节=32 时间=186ms TTL=1</span><br><span class="line">来自 172.67.178.240 的回复: 字节=32 时间=185ms TTL=1</span><br><span class="line">来自 172.67.178.240 的回复: 字节=32 时间=185ms TTL=1</span><br><span class="line">来自 172.67.178.240 的回复: 字节=32 时间=193ms TTL=1</span><br><span class="line">来自 172.67.178.240 的回复: 字节=32 时间=197ms TTL=1</span><br><span class="line"></span><br><span class="line">172.67.178.240 的 Ping 统计信息:</span><br><span class="line">    数据包: 已发送 = 10，已接收 = 10，丢失 = 0 (0% 丢失)，</span><br><span class="line">往返行程的估计时间(以毫秒为单位):</span><br><span class="line">    最短 = 185ms，最长 = 209ms，平均 = 192ms</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="常用指令"><a href="#常用指令" class="headerlink" title="常用指令"></a>常用指令</h2><p><strong>创建隧道</strong>：</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cloudflared.exe tunnel create &lt;tunnel_name&gt;</span><br></pre></td></tr></table></figure></div>
+
+<p>通过此命令可以创建一个新的隧道，<code>&lt;tunnel_name&gt;</code> 是您为隧道指定的名称。</p>
+<p><strong>启动隧道</strong>：</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cloudflared.exe tunnel run &lt;tunnel_name&gt;</span><br></pre></td></tr></table></figure></div>
+
+<p>使用此命令可以启动指定名称的隧道。</p>
+<p><strong>停止隧道</strong>：</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cloudflared.exe tunnel stop &lt;tunnel_name&gt;</span><br></pre></td></tr></table></figure></div>
+
+<p>通过此命令可以停止运行中的隧道。</p>
+<p><strong>删除隧道</strong>：</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cloudflared.exe tunnel delete &lt;tunnel_name&gt;</span><br></pre></td></tr></table></figure></div>
+
+<p>使用此命令可以删除指定的隧道。</p>
+<p><strong>列出隧道</strong>：</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cloudflared.exe tunnel list</span><br></pre></td></tr></table></figure></div>
+
+<p>该命令可以列出所有已创建的隧道。</p>
+<p><strong>查看隧道状态</strong>：</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cloudflared.exe tunnel status &lt;tunnel_name&gt;</span><br></pre></td></tr></table></figure></div>
+
+<p>通过此命令可以查看特定隧道的状态信息。</p>
+<h2 id="特殊"><a href="#特殊" class="headerlink" title="特殊"></a>特殊</h2><p>像是 <code>tcp/rdp/ssh/smb</code> 这一类的协议，是需要端对端的支持，什么意思呢，就是你是对Linux进行的内网穿透，你想要在Windows上进行ssh或者tcp的使用就需要在Windows上面下载一个cloudflared软件供使用，找到适合的版本下载</p>
+<p>下载链接：<a class="link"   target="_blank" rel="noopener" href="https://github.com/cloudflare/cloudflared/releases" >https://github.com/cloudflare/cloudflared/releases<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<p>然后在cloudflared软件路径上进行cmd，运行<code>cloudflared -v</code>看看是否能正常输出版本号，能的话就可以对其及进行操作了</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://vip.123pan.cn/1816073777/blog-img/%E6%96%87%E7%AB%A0/%E7%AC%94%E8%AE%B0/cloudflare%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/9.png"
+                     
+                ></p>
+<p>比如我内穿了22端口到网址上那么就要在本地进行端口映射</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://vip.123pan.cn/1816073777/blog-img/%E6%96%87%E7%AB%A0/%E7%AC%94%E8%AE%B0/cloudflare%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/10.png"
+                     
+                ></p>
+<p>还是在然后在cloudflared软件路径上进行cmd，输入以下内容</p>
+<div class="code-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#样品</span></span><br><span class="line">cloudflared access 协议 --hostname 网址 --url 127.0.0.1:端口</span><br><span class="line"><span class="comment">#例子</span></span><br><span class="line">cloudflared access ssh --hostname test.ximuliunian.top --url 127.0.0.1:9527</span><br></pre></td></tr></table></figure></div>
+
+<p>出现下图中则代表把网址映射到本地的<code>9527</code>端口，因为映射的是Linux的ssh远程，所以可以通过ssh软件尝试连接</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://vip.123pan.cn/1816073777/blog-img/%E6%96%87%E7%AB%A0/%E7%AC%94%E8%AE%B0/cloudflare%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/11.png"
+                     
+                ></p>
+<p>可以看到，在本地的<code>9527</code>已经被映射到本地了，并且也可以被访问，</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://vip.123pan.cn/1816073777/blog-img/%E6%96%87%E7%AB%A0/%E7%AC%94%E8%AE%B0/cloudflare%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/12.png"
+                     
+                ></p>
+<p>同理，其他特殊协议也是这样的，就如我的世界服务器，在Linux上面开设服务器在Linux的25565端口正常开放，通过内网穿透映射到网址上，在通过上面这一串指令映射到本地，就可以进行连接</p>
+<h3 id="脚本"><a href="#脚本" class="headerlink" title="脚本"></a>脚本</h3><p>但是他要一直运行着那个黑窗口才能正常进行本地映射，那有没有什么方法可以没有这个黑窗口但是也能保持映射状态呢？</p>
+<p>YOU！！！</p>
+<p>通过我的绞尽脑汁的思考，突然灵光一现，<code>Windows服务</code>这个词出现在了我的脑海中，既然服务实在后台开着呢，那我是不是也可以进行保持映射状态呢，想到这里我就去试了一试，不出我所料，果然可以，然后通过着进行了c语言的脚本编写最终写完了</p>
+<h4 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h4><p>可以把下载的软件和cloudflared软件这两放在一个文件夹里面</p>
+<p>使用软件有一个前提，那就是要使用管理员的方式打开文件，否则无法打开（可以右键软件 -&gt; 点击属性 -&gt; 点击上面的兼容性一栏 -&gt; 勾选以管理员身份运行此程序）</p>
+<blockquote>
+<p>要把cloudflared软件配置到环境变量里面（右键此电脑 -&gt; 属性 -&gt; 高级系统设置 -&gt; 环境变量 -&gt; 系统变量 -&gt; 在里面找到<code>Path</code>这条数据进入）</p>
+</blockquote>
+<p>然后把cloudflared软件的路径复制到上面去（比如文件夹A里面就有cloudflared软件，那么从文件夹A开始包括A往上到盘符的路径复制下来），然后点击环境变量里面的新建，把路径复制到上面去</p>
+<p>如何判断环境变量是否配置成功了，在任何地方cmd然后输入<code>cloudflared -v</code>都可以输出信息那么就是配置成功了</p>
+<p>使用软件（我自己写的）会产生一个文件<code>config</code>这个文件里面存放的是服务的信息，万万不可删除，有时也会有一个<code>temp</code>的文件出现，这个文件也不要删，切记！切记！切记！！！</p>
+<h4 id="下载-1"><a href="#下载-1" class="headerlink" title="下载"></a>下载</h4><p><a class="link"   target="_blank" rel="noopener" href="https://file-1.ximuliunian.top/%E7%AB%AF%E5%8F%A3%E6%98%A0%E5%B0%84.exe" >点击下载<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<h4 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h4><div class="code-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdbool.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">adds</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">removes</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">view</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">qidong</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">guanbi</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">bool</span> <span class="title function_">IsProcessRunAsAdmin</span><span class="params">()</span> &#123;</span><br><span class="line">    SID_IDENTIFIER_AUTHORITY NtAuthority = SECURITY_NT_AUTHORITY;</span><br><span class="line">    PSID AdministratorsGroup;</span><br><span class="line">    BOOL b = AllocateAndInitializeSid(</span><br><span class="line">            &amp;NtAuthority,</span><br><span class="line">            <span class="number">2</span>,</span><br><span class="line">            SECURITY_BUILTIN_DOMAIN_RID,</span><br><span class="line">            DOMAIN_ALIAS_RID_ADMINS,</span><br><span class="line">            <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>,</span><br><span class="line">            &amp;AdministratorsGroup);</span><br><span class="line">    <span class="keyword">if</span> (b) &#123;</span><br><span class="line">        CheckTokenMembership(<span class="literal">NULL</span>, AdministratorsGroup, &amp;b);</span><br><span class="line">        FreeSid(AdministratorsGroup);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> b == TRUE;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (!IsProcessRunAsAdmin()) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;请以管理员身份打开&quot;</span>);</span><br><span class="line">        Sleep(<span class="number">3000</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    system(<span class="string">&quot;title 曦暮流年 - 端口映射&quot;</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\t##########################\n&quot;</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\t#                        #\n&quot;</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\t#      曦 暮 流 年       #\n&quot;</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\t#      端 口 映 射       #\n&quot;</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\t#                        #\n&quot;</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\t##########################\n\n\n&quot;</span>);</span><br><span class="line">    <span class="keyword">while</span> (<span class="number">1</span>) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;\t1. 增加服务\n&quot;</span>);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;\t2. 删除服务\n&quot;</span>);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;\t3. 查看服务\n&quot;</span>);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;\t4. 启用服务\n&quot;</span>);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;\t5. 关闭服务\n&quot;</span>);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;\t0. 退出\n\n&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;\t作者博客：www.ximuliunian.top\n\n&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> a;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;\t请输入数字编号：&quot;</span>);</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;a);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">switch</span> (a) &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">                adds();</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">                removes();</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">                view();</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">4</span>:</span><br><span class="line">                qidong();</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">5</span>:</span><br><span class="line">                guanbi();</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">case</span> <span class="number">0</span>:</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">&quot;\t感谢使用 再见！&quot;</span>);</span><br><span class="line">                Sleep(<span class="number">2000</span>);</span><br><span class="line">                <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                system(<span class="string">&quot;CLS&quot;</span>);</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">&quot;\t输入的不是应有的编号哦~~~\n&quot;</span>);</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">&quot;\t请重新输入\n\n&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">adds</span><span class="params">()</span> &#123;</span><br><span class="line">    FILE *fp = fopen(<span class="string">&quot;config&quot;</span>, <span class="string">&quot;a+&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span> (fp == <span class="literal">NULL</span>) <span class="keyword">return</span>;</span><br><span class="line">    <span class="type">char</span> ServiceName[<span class="number">300</span>];</span><br><span class="line">    <span class="type">char</span> access[<span class="number">50</span>];</span><br><span class="line">    <span class="type">char</span> hostname[<span class="number">200</span>];</span><br><span class="line">    <span class="type">char</span> url[<span class="number">50</span>];</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n\n\t请输入服务名字：&quot;</span>);</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%s&quot;</span>, ServiceName);</span><br><span class="line">    <span class="type">char</span> tempName[<span class="number">300</span>] = <span class="string">&quot;AAA_XMLN_&quot;</span>;</span><br><span class="line">    <span class="built_in">strcat</span>(tempName, ServiceName);</span><br><span class="line">    <span class="built_in">strcpy</span>( ServiceName,tempName);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\t请输入类型（tcp/rdp/ssh/smb）：&quot;</span>);</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%s&quot;</span>, access);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\t请输入映射网址：&quot;</span>);</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%s&quot;</span>, hostname);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\t请输入被映射的端口（如：25565）127.0.0.1:&quot;</span>);</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%s&quot;</span>, url);</span><br><span class="line">    <span class="built_in">fprintf</span>(fp, <span class="string">&quot;\n%s %s %s %s&quot;</span>, ServiceName, access, hostname, url);</span><br><span class="line"></span><br><span class="line">    <span class="type">char</span> sc[<span class="number">1024</span>] = <span class="string">&quot;sc create &quot;</span>;</span><br><span class="line">    <span class="type">char</span> qd[<span class="number">100</span>] = <span class="string">&quot;net start &quot;</span>;</span><br><span class="line">    <span class="built_in">strcat</span>(qd, ServiceName);</span><br><span class="line">    <span class="built_in">strcat</span>(sc, ServiceName);</span><br><span class="line">    <span class="built_in">strcat</span>(sc, <span class="string">&quot; binPath= \&quot;cmd.exe /c cloudflared access &quot;</span>);</span><br><span class="line">    <span class="built_in">strcat</span>(sc, access);</span><br><span class="line">    <span class="built_in">strcat</span>(sc, <span class="string">&quot; --hostname &quot;</span>);</span><br><span class="line">    <span class="built_in">strcat</span>(sc, hostname);</span><br><span class="line">    <span class="built_in">strcat</span>(sc, <span class="string">&quot; --url 127.0.0.1:&quot;</span>);</span><br><span class="line">    <span class="built_in">strcat</span>(sc, url);</span><br><span class="line">    <span class="built_in">strcat</span>(sc, <span class="string">&quot;\&quot; start= auto&quot;</span>);</span><br><span class="line">    system(sc);</span><br><span class="line">    system(qd);</span><br><span class="line">    fclose(fp);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">removes</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">int</span> j = view();</span><br><span class="line">    <span class="type">int</span> a;</span><br><span class="line">    <span class="type">char</span> name[<span class="number">100</span>];</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\t请输入删除序号：&quot;</span>);</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;a);</span><br><span class="line">    FILE *ffp = fopen(<span class="string">&quot;config&quot;</span>, <span class="string">&quot;r&quot;</span>);</span><br><span class="line">    FILE *fp = fopen(<span class="string">&quot;temp&quot;</span>, <span class="string">&quot;w&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span> (fp == <span class="literal">NULL</span> || ffp == <span class="literal">NULL</span> || a &lt;= <span class="number">0</span> || a &gt; j) <span class="keyword">return</span>;</span><br><span class="line">    <span class="type">char</span> sc[] = <span class="string">&quot;sc delete &quot;</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; !feof(ffp); ++i) &#123;</span><br><span class="line">        <span class="type">char</span> f[<span class="number">4</span>][<span class="number">100</span>];</span><br><span class="line">        <span class="built_in">fscanf</span>(ffp, <span class="string">&quot;%s %s %s %s&quot;</span>, f[<span class="number">0</span>], f[<span class="number">1</span>], f[<span class="number">2</span>], f[<span class="number">3</span>]);</span><br><span class="line">        <span class="keyword">if</span> (i == a) &#123;</span><br><span class="line">            <span class="built_in">strcpy</span>(name, f[<span class="number">0</span>]);</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">fprintf</span>(fp, <span class="string">&quot;\n%s %s %s %s&quot;</span>, f[<span class="number">0</span>], f[<span class="number">1</span>], f[<span class="number">2</span>], f[<span class="number">3</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">strcat</span>(sc, name);</span><br><span class="line">    system(sc);</span><br><span class="line">    fclose(fp);</span><br><span class="line">    fclose(ffp);</span><br><span class="line">    system(<span class="string">&quot;del config&quot;</span>);</span><br><span class="line">    system(<span class="string">&quot;ren temp config&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">view</span><span class="params">()</span> &#123;</span><br><span class="line">    system(<span class="string">&quot;CLS&quot;</span>);</span><br><span class="line">    FILE *fp = fopen(<span class="string">&quot;config&quot;</span>, <span class="string">&quot;r&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span> (fp == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    <span class="type">int</span> j = <span class="number">1</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n\n\t序号\t服务名字\t类型\t映射网址\t被映射端口\n\n&quot;</span>);</span><br><span class="line">    <span class="keyword">while</span> (!feof(fp)) &#123;</span><br><span class="line">        <span class="type">char</span> a[<span class="number">4</span>][<span class="number">100</span>];</span><br><span class="line">        <span class="built_in">fscanf</span>(fp, <span class="string">&quot;%s %s %s %s&quot;</span>, a[<span class="number">0</span>], a[<span class="number">1</span>], a[<span class="number">2</span>], a[<span class="number">3</span>]);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;\t%d\t&quot;</span>, j++);</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; ++i) &#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;%s\t&quot;</span>, a[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;\n\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    fclose(fp);</span><br><span class="line">    <span class="keyword">return</span> j;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">kg</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> j, <span class="type">char</span> sc[])</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">qidong</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">int</span> j = view();</span><br><span class="line">    <span class="type">int</span> a;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\t请输入序号：&quot;</span>);</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;a);</span><br><span class="line">    kg(a, j, <span class="string">&quot;net start &quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">guanbi</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">int</span> j = view();</span><br><span class="line">    <span class="type">int</span> a;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\t请输入序号：&quot;</span>);</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;a);</span><br><span class="line">    kg(a, j, <span class="string">&quot;net stop &quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">kg</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> j, <span class="type">char</span> sc[])</span> &#123;</span><br><span class="line">    <span class="type">char</span> name[<span class="number">100</span>];</span><br><span class="line">    <span class="type">char</span> sp[<span class="number">100</span>];</span><br><span class="line">    <span class="built_in">strcpy</span>(sp, sc);</span><br><span class="line">    FILE *ffp = fopen(<span class="string">&quot;config&quot;</span>, <span class="string">&quot;r&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span> (ffp == <span class="literal">NULL</span> || a &lt;= <span class="number">0</span> || a &gt; j) <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; !feof(ffp); ++i) &#123;</span><br><span class="line">        <span class="type">char</span> f[<span class="number">5</span>][<span class="number">100</span>];</span><br><span class="line">        <span class="built_in">fscanf</span>(ffp, <span class="string">&quot;%s %s %s %s %s&quot;</span>, f[<span class="number">0</span>], f[<span class="number">1</span>], f[<span class="number">2</span>], f[<span class="number">3</span>], f[<span class="number">4</span>]);</span><br><span class="line">        <span class="keyword">if</span> (i == a) &#123;</span><br><span class="line">            <span class="built_in">strcpy</span>(name, f[<span class="number">0</span>]);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">strcat</span>(sp, name);</span><br><span class="line">    system(sp);</span><br><span class="line">    fclose(ffp);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+
+		</div>
+
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
+    <ul>
+        <li><strong>标题:</strong> cloudflared内网穿透</li>
+        <li><strong>作者:</strong> 曦暮流年</li>
+        <li><strong>创建于
+                :</strong> 2023-09-27 19:45:41</li>
+        
+            <li>
+                <strong>更新于
+                    :</strong> 2024-04-19 00:00:00
+            </li>
+        
+        <li>
+            <strong>链接:</strong> https://www.ximuliunian.top/2023/09/27/随记/cloudflare内网穿透/
+        </li>
+        <li>
+            <strong>
+                版权声明:
+            </strong>
+            
+
+            
+                本文章采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a> 进行许可。
+            
+        </li>
+    </ul>
+</div>
+
+		</div>
+		
+
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/%E5%B7%A5%E5%85%B7/">#工具</a>&nbsp;
+			</li>
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/%E5%91%BD%E4%BB%A4/">#命令</a>&nbsp;
+			</li>
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/Linux/">#Linux</a>&nbsp;
+			</li>
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/CentOS-7/">#CentOS 7</a>&nbsp;
+			</li>
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/C%E8%AF%AD%E8%A8%80/">#C语言</a>&nbsp;
+			</li>
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/%E8%84%9A%E6%9C%AC/">#脚本</a>&nbsp;
+			</li>
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/">#内网穿透</a>&nbsp;
+			</li>
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/cloudflare/">#cloudflare</a>&nbsp;
+			</li>
+			
+		</ul>
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="prev" rel="prev" href="/2023/10/12/%E5%89%8D%E7%AB%AF/%E6%97%A5%E5%8E%86%E5%B0%8F%E6%A1%88%E4%BE%8B/">
+					<span class="left arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-left"></i>
+					</span>
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">日历小案例</span>
+						<span class="post-nav-item">上一篇</span>
+					</span>
+				</a>
+			</div>
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2023/06/27/java/%E4%BD%BF%E7%94%A8Java%E8%BF%9B%E8%A1%8Cjson%E7%9A%84%E8%AF%BB%E5%8F%96%E4%BA%8E%E5%86%99%E5%85%A5/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">使用Java进行json的读取于写入</span>
+						<span class="post-nav-item">下一篇</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        评论
+    </div>
+    
+
+        
+            
+    <div id="giscus-container"></div>
+    <script data-swup-reload-script defer>
+        async function loadGiscus() {
+            const giscusConfig = {
+                'src': 'https://giscus.app/client.js',
+                'data-repo': 'ximuliunian/blog',
+                'data-repo-id': 'R_kgDOGuKRyg',
+                'data-category': 'General',
+                'data-category-id': 'DIC_kwDOGuKRys4CVf54',
+                'data-mapping': 'pathname',
+                'data-strict': '0',
+                'data-reactions-enabled': '1',
+                'data-emit-metadata': '1',
+                'data-theme': 'preferred_color_scheme',
+                'data-lang': 'zh-CN',
+                'data-input-position': 'top',
+                'data-loading': 'lazy',
+                'crossorigin': 'anonymous',
+                'async': true
+            }
+            const giscusScript = document.createElement('script');
+            for (const key in giscusConfig) {
+                giscusScript.setAttribute(key, giscusConfig[key]);
+            }
+            document.getElementById('giscus-container').appendChild(giscusScript);
+        }
+        if ('true') {
+            let loadGiscusTimeout = setTimeout(() => {
+                loadGiscus();
+                clearTimeout(loadGiscusTimeout);
+            }, 1000);
+        } else {
+            document.addEventListener('DOMContentLoaded', loadGiscus);
+        }
+    </script>
+
+
+        
+        
+    
+</div>
+
+		</div>
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">目录</div>
+		<div class="page-title">cloudflared内网穿透</div>
+		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Cloudflared-Zero-Trust"><span class="nav-number">1.</span> <span class="nav-text">Cloudflared Zero Trust</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="nav-number">2.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BD%91%E9%A1%B5%E7%89%88"><span class="nav-number">3.</span> <span class="nav-text">网页版</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">3.1.</span> <span class="nav-text">初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C"><span class="nav-number">3.2.</span> <span class="nav-text">操作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%87%E4%BB%A4%E7%89%88"><span class="nav-number">4.</span> <span class="nav-text">指令版</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD"><span class="nav-number">4.1.</span> <span class="nav-text">下载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BA%AB%E4%BB%BD%E8%AE%A4%E8%AF%81"><span class="nav-number">4.2.</span> <span class="nav-text">身份认证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B0%E5%BB%BA-Tunnel"><span class="nav-number">4.3.</span> <span class="nav-text">新建 Tunnel</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEDNS%E8%AE%B0%E5%BD%95"><span class="nav-number">4.4.</span> <span class="nav-text">配置DNS记录</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BD%91%E7%AB%99%E9%85%8D%E7%BD%AE"><span class="nav-number">4.4.1.</span> <span class="nav-text">网站配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8C%87%E4%BB%A4%E9%85%8D%E7%BD%AE"><span class="nav-number">4.4.2.</span> <span class="nav-text">指令配置</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E7%BC%96%E5%86%99"><span class="nav-number">4.5.</span> <span class="nav-text">配置文件编写</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C-Tunnel"><span class="nav-number">4.6.</span> <span class="nav-text">执行 Tunnel</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1"><span class="nav-number">4.7.</span> <span class="nav-text">服务</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E6%9C%8D%E5%8A%A1"><span class="nav-number">4.7.1.</span> <span class="nav-text">安装服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1"><span class="nav-number">4.7.2.</span> <span class="nav-text">启动服务</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%98%AF%E5%90%A6OK"><span class="nav-number">4.8.</span> <span class="nav-text">查看是否OK</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Windows%E4%BD%BF%E7%94%A8"><span class="nav-number">5.</span> <span class="nav-text">Windows使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C-1"><span class="nav-number">5.1.</span> <span class="nav-text">操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%AF%E7%94%A8%E7%A9%BF%E9%80%8F"><span class="nav-number">5.2.</span> <span class="nav-text">启用穿透</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9F%E5%BA%A6"><span class="nav-number">5.3.</span> <span class="nav-text">速度</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4"><span class="nav-number">6.</span> <span class="nav-text">常用指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%B9%E6%AE%8A"><span class="nav-number">7.</span> <span class="nav-text">特殊</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%84%9A%E6%9C%AC"><span class="nav-number">7.1.</span> <span class="nav-text">脚本</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">7.1.1.</span> <span class="nav-text">注意事项</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD-1"><span class="nav-number">7.1.2.</span> <span class="nav-text">下载</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%BA%90%E7%A0%81"><span class="nav-number">7.1.3.</span> <span class="nav-text">源码</span></a></li></ol></li></ol></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+            <div class="customize-info my-1">顺境不惰，逆境不妥，以心制境，万事可成</div>
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2025&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">曦暮流年</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        共撰写了 33 篇文章
+                    </span>
+                    
+                        <span>
+                            共 54.7k 字
+                        </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">访问人数</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">总访问量</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">由 <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a> 驱动</span>
+            <span class="text-sm lg:block">主题&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.5</a></span>
+        </div>
+        
+        
+            <div>
+                博客已运行 <span class="odometer" id="runtime_days" ></span> 天 <span class="odometer" id="runtime_hours"></span> 小时 <span class="odometer" id="runtime_minutes"></span> 分钟 <span class="odometer" id="runtime_seconds"></span> 秒
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+            
+                
+        
+                
+        
+                
+
+                    
+                        <canvas id="universe"></canvas>
+                    
+        
+                
+
+                    
+                        <script data-swup-reload-script defer src="/js/universe.js"></script>
+                    
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
+</div>
+
+	
+	<div class="search-pop-overlay">
+	<div class="popup search-popup">
+		<div class="search-header">
+			<span class="search-input-field-pre">
+				<i class="fa-solid fa-keyboard"></i>
+			</span>
+			<div class="search-input-container">
+				<input autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="站内搜索您需要的内容..." spellcheck="false" type="search" class="search-input">
+			</div>
+			<span class="popup-btn-close">
+				<i class="fa-solid fa-times"></i>
+			</span>
+		</div>
+		<div id="search-result">
+			<div id="no-result">
+				<i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+			</div>
+		</div>
+	</div>
+</div>
+	
+
+</main>
+
+
+
+<script src="/js/build/libs/Swup.min.js"></script>
+
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+	
+<script src="/js/build/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/build/utils.js" type="module"></script>
+
+<script src="/js/build/main.js" type="module"></script>
+
+<script src="/js/build/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/build/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/build/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/build/layouts/categoryList.js" type="module"></script>
+
+
+
+    
+<script src="/js/build/tools/localSearch.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/runtime.js"></script>
+
+    
+<script src="/js/build/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/build/libs/Typed.min.js"></script>
+
+  
+<script src="/js/build/plugins/typed.js" type="module"></script>
+
+
+
+
+    
+        
+<script src="/js/build/libs/mermaid.min.js"></script>
+
+    
+    
+<script src="/js/build/plugins/mermaid.js"></script>
+
+
+
+
+
+
+    
+<script src="/js/build/libs/anime.min.js"></script>
+
+
+
+
+
+    
+<script src="/js/build/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/js/build/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+
+	
+</body>
+
+</html>
